@@ -10,7 +10,13 @@
     We are using node <script>document.write(process.versions.node)</script>,
     Chrome <script>document.write(process.versions.chrome)</script>,
     and Electron <script>document.write(process.versions.electron)</script>.
-</body>
 
-<script src="../game/GameState.js"></script>
+    <button id="testeButton">Botao</button>
+
+    <script src="./loader/system.js"></script>
+    <script>
+        System.defaultJSExtensions = true;
+        System.import('../scripts/GameState.js');
+    </script>
+</body>
 </html>

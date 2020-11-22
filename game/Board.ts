@@ -1,12 +1,11 @@
-import { Bishop, King, Knight, Pawn, Queen, Rook } from "./Pieces/AllPieces";
-import { Piece } from "./Pieces/Piece";
 import { Coordinate } from "./Coordinate";
+import { Piece } from "./Pieces/Piece";
+import { Bishop, King, Queen, Knight, Pawn, Rook } from "./Pieces/PiecesExport";
 
 export class Board {
     state: Array<Array<Piece>>;
 
     constructor() {
-        
         this.state = [
             [new Rook(1)], [new Knight(1)], [new Bishop(1)], [new Queen(1)], [new King(1)], [new Bishop(1)], [new Knight(1)], [new Rook(1)],
             [new Pawn(1)], [new Pawn(1)], [new Pawn(1)], [new Pawn(1)], [new Pawn(1)], [new Pawn(1)], [new Pawn(1)], [new Pawn(1)],

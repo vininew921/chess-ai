@@ -4,7 +4,7 @@ export class Rook extends Piece {
     texture: string;
 
     constructor(player: number) {
-        super(player, 'Pawn');
+        super(player, 'Queen');
 
         if(player == 0){
             this.texture = 'rook_white';

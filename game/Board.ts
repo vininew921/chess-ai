@@ -2,13 +2,11 @@ import { Bishop, King, Knight, Pawn, Queen, Rook } from "./Pieces/AllPieces";
 import { Piece } from "./Pieces/Piece";
 import { Coordinate } from "./Coordinate";
 
-class Board {
-    size: number;
+export class Board {
     state: Array<Array<Piece>>;
 
-    constructor(s: number) {
-        this.size = s;
-
+    constructor() {
+        
         this.state = [
             [new Rook(1)], [new Knight(1)], [new Bishop(1)], [new Queen(1)], [new King(1)], [new Bishop(1)], [new Knight(1)], [new Rook(1)],
             [new Pawn(1)], [new Pawn(1)], [new Pawn(1)], [new Pawn(1)], [new Pawn(1)], [new Pawn(1)], [new Pawn(1)], [new Pawn(1)],
@@ -39,4 +37,5 @@ class Board {
 
         return result;
     }
+
 }

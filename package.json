@@ -1,0 +1,23 @@
+{
+  "name": "chess-ai",
+  "version": "1.0.0",
+  "description": "Chess AI",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vininew921/chess-ai.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vininew921/chess-ai/issues"
+  },
+  "homepage": "https://github.com/vininew921/chess-ai#readme",
+  "devDependencies": {
+    "electron": "^11.0.2"
+  }
+}

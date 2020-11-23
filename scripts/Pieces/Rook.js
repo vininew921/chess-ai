@@ -11,13 +11,7 @@ System.register(["./Piece"], function (exports_1, context_1) {
         execute: function () {
             Rook = class Rook extends Piece_1.Piece {
                 constructor(player) {
-                    super(player, 'Queen');
-                    if (player == 0) {
-                        this.texture = 'rook_white';
-                    }
-                    else {
-                        this.texture = 'rook_black';
-                    }
+                    super(player, 'Rook');
                 }
             };
             exports_1("Rook", Rook);

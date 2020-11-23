@@ -12,12 +12,6 @@ System.register(["./Piece"], function (exports_1, context_1) {
             Queen = class Queen extends Piece_1.Piece {
                 constructor(player) {
                     super(player, 'Queen');
-                    if (player == 0) {
-                        this.texture = 'queen_white';
-                    }
-                    else {
-                        this.texture = 'queen_black';
-                    }
                 }
             };
             exports_1("Queen", Queen);

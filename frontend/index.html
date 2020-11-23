@@ -3,15 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-    <title>Index</title>
+    <title>Game</title>
 </head>
 <body>
-    <h1>Hello World!</h1>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    
+    <div id="pieces" hidden>
+        <img src="./textures/bishop_white.png" id = "bishop_white">
+        <img src="./textures/knight_white.png" id = "knight_white">
+        <img src="./textures/pawn_white.png" id = "pawn_white">
+        <img src="./textures/queen_white.png" id = "queen_white">
+        <img src="./textures/rook_white.png" id = "rook_white">
+        <img src="./textures/king_white.png" id = "king_white">
+        <img src="./textures/bishop_black.png" id = "bishop_black">
+        <img src="./textures/knight_black.png" id = "knight_black">
+        <img src="./textures/pawn_black.png" id = "pawn_black">
+        <img src="./textures/queen_black.png" id = "queen_black">
+        <img src="./textures/rook_black.png" id = "rook_black">
+        <img src="./textures/king_black.png" id = "king_black">
+    </div>
 
-    <button id="testeButton">Botao</button>
+    <canvas id="gameBoard" width="480px" height="480px" style="background: #fff; margin:20px"></canvas>
 
     <script src="./loader/system.js"></script>
     <script>

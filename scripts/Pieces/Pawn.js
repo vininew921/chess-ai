@@ -12,12 +12,6 @@ System.register(["./Piece"], function (exports_1, context_1) {
             Pawn = class Pawn extends Piece_1.Piece {
                 constructor(player) {
                     super(player, 'Pawn');
-                    if (player == 0) {
-                        this.texture = 'pawn_white';
-                    }
-                    else {
-                        this.texture = 'pawn_black';
-                    }
                 }
             };
             exports_1("Pawn", Pawn);

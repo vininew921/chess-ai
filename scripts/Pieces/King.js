@@ -12,12 +12,6 @@ System.register(["./Piece"], function (exports_1, context_1) {
             King = class King extends Piece_1.Piece {
                 constructor(player) {
                     super(player, 'King');
-                    if (player == 0) {
-                        this.texture = 'king_white';
-                    }
-                    else {
-                        this.texture = 'king_black';
-                    }
                 }
             };
             exports_1("King", King);

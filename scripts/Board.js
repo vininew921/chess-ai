@@ -15,29 +15,30 @@ System.register(["./Coordinate", "./Pieces/PiecesExport"], function (exports_1, 
             Board = class Board {
                 constructor() {
                     this.state = [
-                        [new PiecesExport_1.Rook(1)], [new PiecesExport_1.Knight(1)], [new PiecesExport_1.Bishop(1)], [new PiecesExport_1.Queen(1)], [new PiecesExport_1.King(1)], [new PiecesExport_1.Bishop(1)], [new PiecesExport_1.Knight(1)], [new PiecesExport_1.Rook(1)],
-                        [new PiecesExport_1.Pawn(1)], [new PiecesExport_1.Pawn(1)], [new PiecesExport_1.Pawn(1)], [new PiecesExport_1.Pawn(1)], [new PiecesExport_1.Pawn(1)], [new PiecesExport_1.Pawn(1)], [new PiecesExport_1.Pawn(1)], [new PiecesExport_1.Pawn(1)],
-                        [], [], [], [], [], [], [], [],
-                        [], [], [], [], [], [], [], [],
-                        [], [], [], [], [], [], [], [],
-                        [], [], [], [], [], [], [], [],
-                        [new PiecesExport_1.Pawn(0)], [new PiecesExport_1.Pawn(0)], [new PiecesExport_1.Pawn(0)], [new PiecesExport_1.Pawn(0)], [new PiecesExport_1.Pawn(0)], [new PiecesExport_1.Pawn(0)], [new PiecesExport_1.Pawn(0)], [new PiecesExport_1.Pawn(0)],
-                        [new PiecesExport_1.Rook(0)], [new PiecesExport_1.Knight(0)], [new PiecesExport_1.Bishop(0)], [new PiecesExport_1.King(0)], [new PiecesExport_1.Queen(0)], [new PiecesExport_1.Bishop(0)], [new PiecesExport_1.Knight(0)], [new PiecesExport_1.Rook(0)],
+                        [new PiecesExport_1.Rook(1), new PiecesExport_1.Knight(1), new PiecesExport_1.Bishop(1), new PiecesExport_1.Queen(1), new PiecesExport_1.King(1), new PiecesExport_1.Bishop(1), new PiecesExport_1.Knight(1), new PiecesExport_1.Rook(1)],
+                        [new PiecesExport_1.Pawn(1), new PiecesExport_1.Pawn(1), new PiecesExport_1.Pawn(1), new PiecesExport_1.Pawn(1), new PiecesExport_1.Pawn(1), new PiecesExport_1.Pawn(1), new PiecesExport_1.Pawn(1), new PiecesExport_1.Pawn(1)],
+                        [, , , , , , ,],
+                        [, , , , , , ,],
+                        [, , , , , , ,],
+                        [, , , , , , ,],
+                        [new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0)],
+                        [new PiecesExport_1.Rook(0), new PiecesExport_1.Knight(0), new PiecesExport_1.Bishop(0), new PiecesExport_1.Queen(0), new PiecesExport_1.King(0), new PiecesExport_1.Bishop(0), new PiecesExport_1.Knight(0), new PiecesExport_1.Rook(0)],
                     ];
                 }
                 getPiecePosition(name) {
-                    let result;
+                    let result = new Array();
                     let x = 0;
                     let y = 0;
                     let found = false;
-                    this.state.forEach(row => {
-                        row.forEach(piece => {
+                    this.state.forEach(column => {
+                        column.forEach(piece => {
                             if (piece.name == name) {
                                 result.push(new Coordinate_1.Coordinate(x, y));
                             }
-                            x++;
+                            y++;
                         });
-                        y++;
+                        y = 0;
+                        x++;
                     });
                     return result;
                 }

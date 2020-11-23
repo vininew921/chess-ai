@@ -17,13 +17,14 @@ export class Board {
             [new Rook(0), new Knight(0), new Bishop(0), new Queen(0), new King(0), new Bishop(0), new Knight(0), new Rook(0)],
         ];
 
+        console.table(this.position);
         this.SetPiecesPosition();
     }
 
     SetPiecesPosition(): void{
         for(var i = 0; i < 8; i++){
             for(var j = 0; j < 8; j++){
-                let piece = this.GetBoard()[j][i];
+                let piece = this.GetBoard()[i][j];
                 if(piece != undefined){
                     piece.position = new Coordinate(i, j);
                 }
@@ -31,12 +32,20 @@ export class Board {
         }
     }
 
+    public MovePiece(piece: Piece, newPos: Coordinate){
+        this.position[piece.position.x][piece.position.y] = undefined;
+
+        piece.position = newPos;
+
+        this.position[newPos.x][newPos.y] = piece;
+    }
+
     public GetBoard(): Array<Array<Piece>>{
         return this.position;
     }
 
-    public GetPieceByPosition(x: number, y: number): Piece {
-        return this.position[x][y];
+    public GetPieceByPosition(c: Coordinate): Piece {
+        return this.position[c.x][c.y];
     }
 
     public GetPoints(player: number): number{

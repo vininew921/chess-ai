@@ -24,23 +24,29 @@ System.register(["./Coordinate", "./Pieces/PiecesExport"], function (exports_1, 
                         [new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0)],
                         [new PiecesExport_1.Rook(0), new PiecesExport_1.Knight(0), new PiecesExport_1.Bishop(0), new PiecesExport_1.Queen(0), new PiecesExport_1.King(0), new PiecesExport_1.Bishop(0), new PiecesExport_1.Knight(0), new PiecesExport_1.Rook(0)],
                     ];
+                    console.table(this.position);
                     this.SetPiecesPosition();
                 }
                 SetPiecesPosition() {
                     for (var i = 0; i < 8; i++) {
                         for (var j = 0; j < 8; j++) {
-                            let piece = this.GetBoard()[j][i];
+                            let piece = this.GetBoard()[i][j];
                             if (piece != undefined) {
                                 piece.position = new Coordinate_1.Coordinate(i, j);
                             }
                         }
                     }
                 }
+                MovePiece(piece, newPos) {
+                    this.position[piece.position.x][piece.position.y] = undefined;
+                    piece.position = newPos;
+                    this.position[newPos.x][newPos.y] = piece;
+                }
                 GetBoard() {
                     return this.position;
                 }
-                GetPieceByPosition(x, y) {
-                    return this.position[x][y];
+                GetPieceByPosition(c) {
+                    return this.position[c.x][c.y];
                 }
                 GetPoints(player) {
                     var points = 0;

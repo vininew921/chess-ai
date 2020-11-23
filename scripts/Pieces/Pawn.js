@@ -20,22 +20,18 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                 }
                 PossibleMoves(b) {
                     let result = new Array();
+                    let indexX = this.position.x;
+                    let indexY = this.position.y;
                     if (this.player == 0) {
+                        result.push(new Coordinate_1.Coordinate(indexX - 1, indexY));
                         if (this.firstMove) {
-                            result.push(new Coordinate_1.Coordinate(this.position.x, this.position.y - 1));
-                            result.push(new Coordinate_1.Coordinate(this.position.x, this.position.y - 2));
-                        }
-                        else {
-                            result.push(new Coordinate_1.Coordinate(this.position.x, this.position.y - 1));
+                            result.push(new Coordinate_1.Coordinate(indexX - 2, indexY));
                         }
                     }
                     else {
+                        result.push(new Coordinate_1.Coordinate(indexX + 1, indexY));
                         if (this.firstMove) {
-                            result.push(new Coordinate_1.Coordinate(this.position.x, this.position.y + 1));
-                            result.push(new Coordinate_1.Coordinate(this.position.x, this.position.y + 2));
-                        }
-                        else {
-                            result.push(new Coordinate_1.Coordinate(this.position.x, this.position.y + 1));
+                            result.push(new Coordinate_1.Coordinate(indexX + 2, indexY));
                         }
                     }
                     return result;

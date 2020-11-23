@@ -1,11 +1,14 @@
-System.register(["./Board"], function (exports_1, context_1) {
+System.register(["./Board", "./Coordinate"], function (exports_1, context_1) {
     "use strict";
-    var Board_1, GameController;
+    var Board_1, Coordinate_1, GameController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (Board_1_1) {
                 Board_1 = Board_1_1;
+            },
+            function (Coordinate_1_1) {
+                Coordinate_1 = Coordinate_1_1;
             }
         ],
         execute: function () {
@@ -18,39 +21,68 @@ System.register(["./Board"], function (exports_1, context_1) {
                     this.blackPoints = this.board.GetPoints(1);
                     this.gameBoard = document.getElementById('gameBoard');
                     this.gameBoard.addEventListener("click", (event) => {
-                        this.GetPiece(event);
-                        this.ShowAvailableMoves();
-                        if (this.selectedPiece.player == this.player) {
-                            this.ShowAvailableMoves();
+                        let clicked = this.EventToCoordinate(event);
+                        let newPiece = this.GetPiece(clicked);
+                        this.selectedPiece = newPiece == undefined ? this.selectedPiece : newPiece;
+                        if (newPiece) {
+                            if (this.selectedPiece.player == this.player) {
+                                this.ShowAvailableMoves();
+                            }
                         }
+                        this.CheckMove(clicked);
                     });
                     this.gameBoardHeight = 480;
                     this.gameBoardWidth = 480;
                     this.DrawBoard();
+                }
+                CheckMove(c) {
+                    if (this.possibleMoves) {
+                        console.log(`CheckMove: (${c.x}, ${c.y})`);
+                        this.possibleMoves.forEach(pm => {
+                            if (pm.x == c.x && pm.y == c.y) {
+                                console.log(pm);
+                                console.log(`Move piece ${this.selectedPiece.texture} from (${this.selectedPiece.position.x}, ${this.selectedPiece.position.y}) to (${c.x}, ${c.y})`);
+                                this.board.MovePiece(this.selectedPiece, c);
+                                this.ChangeTurn();
+                                this.DrawBoard();
+                            }
+                        });
+                    }
+                }
+                ChangeTurn() {
+                    if (this.player == 0) {
+                        this.player = 1;
+                    }
+                    else {
+                        this.player = 0;
+                    }
                 }
                 ShowAvailableMoves() {
                     this.DrawBoard();
                     this.possibleMoves = this.selectedPiece.PossibleMoves(this.board);
                     let context = this.gameBoard.getContext("2d");
                     context.fillStyle = "#00FFFF";
+                    console.log(this.possibleMoves);
                     this.possibleMoves.forEach(c => {
-                        var posX = c.x * (this.gameBoardWidth / 8);
-                        var posY = c.y * (this.gameBoardHeight / 8);
+                        var posX = c.y * (this.gameBoardWidth / 8);
+                        var posY = c.x * (this.gameBoardHeight / 8);
                         context.fillRect(posX + 1, posY + 1, (this.gameBoardWidth / 8) - 2, (this.gameBoardHeight / 8) - 2);
-                        context.closePath();
-                        let redrawPiece = this.board.GetPieceByPosition(c.y, c.x);
+                        let redrawPiece = this.GetPiece(c);
                         if (redrawPiece) {
-                            this.DrawPiece(c.x, c.y, redrawPiece, context);
+                            this.DrawPiece(redrawPiece, context);
                         }
                     });
                 }
-                GetPiece(ev) {
+                EventToCoordinate(ev) {
                     var rect = this.gameBoard.getBoundingClientRect();
-                    let mouseY = ev.clientX - rect.left;
-                    let mouseX = ev.clientY - rect.top;
+                    let mouseX = ev.clientX - rect.left;
+                    let mouseY = ev.clientY - rect.top;
                     let indexX = Math.floor(mouseX / (this.gameBoardWidth / 8));
                     let indexY = Math.floor(mouseY / (this.gameBoardHeight / 8));
-                    this.selectedPiece = this.board.GetPieceByPosition(indexX, indexY);
+                    return new Coordinate_1.Coordinate(indexY, indexX);
+                }
+                GetPiece(index) {
+                    return this.board.GetPieceByPosition(index);
                 }
                 DrawBoard() {
                     let context = this.gameBoard.getContext("2d");
@@ -83,8 +115,8 @@ System.register(["./Board"], function (exports_1, context_1) {
                     let context = this.gameBoard.getContext("2d");
                     for (var i = 0; i < 8; i++) {
                         for (var j = 0; j < 8; j++) {
-                            var p = this.board.GetBoard()[j][i];
-                            if (p != undefined) {
+                            var p = this.GetPiece(new Coordinate_1.Coordinate(i, j));
+                            if (p) {
                                 pieceId++;
                                 p.id = pieceId;
                                 var player;
@@ -94,14 +126,14 @@ System.register(["./Board"], function (exports_1, context_1) {
                                 else {
                                     player = "black";
                                 }
-                                this.DrawPiece(p.position.x, p.position.y, p, context);
+                                this.DrawPiece(p, context);
                             }
                         }
                     }
                 }
-                DrawPiece(indexX, indexY, p, context) {
+                DrawPiece(p, context) {
                     let img = document.getElementById(`${p.texture}`);
-                    context.drawImage(img, indexX * this.gameBoardWidth / 8, indexY * this.gameBoardWidth / 8);
+                    context.drawImage(img, p.position.y * this.gameBoardWidth / 8, p.position.x * this.gameBoardWidth / 8);
                 }
             };
             new GameController();

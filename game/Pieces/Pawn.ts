@@ -9,23 +9,19 @@ export class Pawn extends Piece {
 
     PossibleMoves(b: Board): Array<Coordinate> {
         let result = new Array<Coordinate>();
+        let indexX = this.position.x;
+        let indexY = this.position.y;
 
         if(this.player == 0){
+            result.push(new Coordinate(indexX - 1, indexY));
             if(this.firstMove){
-                result.push(new Coordinate(this.position.x, this.position.y - 1));
-                result.push(new Coordinate(this.position.x, this.position.y - 2));
-            }
-            else{
-                result.push(new Coordinate(this.position.x, this.position.y - 1));
+                result.push(new Coordinate(indexX - 2, indexY));
             }
         }
         else{
+            result.push(new Coordinate(indexX + 1, indexY));
             if(this.firstMove){
-                result.push(new Coordinate(this.position.x, this.position.y + 1));
-                result.push(new Coordinate(this.position.x, this.position.y + 2));
-            }
-            else{
-                result.push(new Coordinate(this.position.x, this.position.y + 1));
+                result.push(new Coordinate(indexX + 2, indexY));
             }
         }
 

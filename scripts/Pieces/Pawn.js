@@ -12,6 +12,13 @@ System.register(["./Piece"], function (exports_1, context_1) {
             Pawn = class Pawn extends Piece_1.Piece {
                 constructor(player) {
                     super(player, 'Pawn');
+                    this.value = 1;
+                }
+                Move() {
+                    throw new Error("Method not implemented.");
+                }
+                PossibleMoves() {
+                    throw new Error("Method not implemented.");
                 }
             };
             exports_1("Pawn", Pawn);

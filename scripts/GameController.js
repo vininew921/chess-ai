@@ -1,6 +1,6 @@
 System.register(["./Board"], function (exports_1, context_1) {
     "use strict";
-    var Board_1, GameState;
+    var Board_1, GameController;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -9,13 +9,24 @@ System.register(["./Board"], function (exports_1, context_1) {
             }
         ],
         execute: function () {
-            GameState = class GameState {
+            GameController = class GameController {
                 constructor() {
                     this.board = new Board_1.Board();
                     this.gameBoard = document.getElementById('gameBoard');
+                    this.gameBoard.addEventListener("click", (event) => {
+                        console.log(this.getPiece(event));
+                    });
                     this.gameBoardHeight = 480;
                     this.gameBoardWidth = 480;
                     this.drawBoard();
+                }
+                getPiece(ev) {
+                    var rect = this.gameBoard.getBoundingClientRect();
+                    let mouseY = ev.clientX - rect.left;
+                    let mouseX = ev.clientY - rect.top;
+                    let indexX = Math.floor(mouseX / (this.gameBoardWidth / 8));
+                    let indexY = Math.floor(mouseY / (this.gameBoardHeight / 8));
+                    return this.board.position[indexX][indexY];
                 }
                 drawBoard() {
                     let context = this.gameBoard.getContext("2d");
@@ -38,15 +49,16 @@ System.register(["./Board"], function (exports_1, context_1) {
                         }
                     }
                     this.drawPieces();
-                    console.log(this.board.getPiecePosition('Knight'));
                 }
                 drawPieces() {
+                    let pieceId = 0;
                     let context = this.gameBoard.getContext("2d");
-                    console.log(this.board.state);
                     for (var i = 0; i < 8; i++) {
                         for (var j = 0; j < 8; j++) {
-                            var p = this.board.state[j][i];
+                            var p = this.board.position[j][i];
                             if (p != undefined) {
+                                pieceId++;
+                                p.id = pieceId;
                                 var player;
                                 if (p.player == 0) {
                                     player = "white";
@@ -61,7 +73,7 @@ System.register(["./Board"], function (exports_1, context_1) {
                     }
                 }
             };
-            new GameState();
+            new GameController();
         }
     };
 });

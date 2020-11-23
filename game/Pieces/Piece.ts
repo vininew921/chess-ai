@@ -1,7 +1,12 @@
+import { Coordinate } from "../Coordinate";
+
 export abstract class Piece {
     player: number;
     name: string;
     texture: string;
+    id: number;
+
+    abstract value: number;
     
     constructor(p: number, n: string) {
         this.player = p;
@@ -14,4 +19,9 @@ export abstract class Piece {
             this.texture = `${this.name.toLowerCase()}_black`;
         }
     }
+
+    abstract Move(): void;
+
+    abstract PossibleMoves(): Array<Coordinate>;
+
 }

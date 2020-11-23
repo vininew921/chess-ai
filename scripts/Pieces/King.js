@@ -12,6 +12,13 @@ System.register(["./Piece"], function (exports_1, context_1) {
             King = class King extends Piece_1.Piece {
                 constructor(player) {
                     super(player, 'King');
+                    this.value = 999;
+                }
+                Move() {
+                    throw new Error("Method not implemented.");
+                }
+                PossibleMoves() {
+                    throw new Error("Method not implemented.");
                 }
             };
             exports_1("King", King);

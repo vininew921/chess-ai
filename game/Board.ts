@@ -3,10 +3,10 @@ import { Piece } from "./Pieces/Piece";
 import { Bishop, King, Queen, Knight, Pawn, Rook } from "./Pieces/PiecesExport";
 
 export class Board {
-    state: Array<Array<Piece>>;
+    position: Array<Array<Piece>>;
 
     constructor() {
-        this.state = [
+        this.position = [
             [new Rook(1), new Knight(1), new Bishop(1), new Queen(1), new King(1), new Bishop(1), new Knight(1), new Rook(1)],
             [new Pawn(1), new Pawn(1), new Pawn(1), new Pawn(1), new Pawn(1), new Pawn(1), new Pawn(1), new Pawn(1)],
             [,,,,,,,],
@@ -24,7 +24,7 @@ export class Board {
         let x: number = 0;
         let y: number = 0;
         let found: boolean = false;
-        this.state.forEach(column => {
+        this.position.forEach(column => {
             column.forEach(piece => {
                 if(piece.name == name){
                     result.push(new Coordinate(x, y));

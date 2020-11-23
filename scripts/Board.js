@@ -14,7 +14,7 @@ System.register(["./Coordinate", "./Pieces/PiecesExport"], function (exports_1, 
         execute: function () {
             Board = class Board {
                 constructor() {
-                    this.state = [
+                    this.position = [
                         [new PiecesExport_1.Rook(1), new PiecesExport_1.Knight(1), new PiecesExport_1.Bishop(1), new PiecesExport_1.Queen(1), new PiecesExport_1.King(1), new PiecesExport_1.Bishop(1), new PiecesExport_1.Knight(1), new PiecesExport_1.Rook(1)],
                         [new PiecesExport_1.Pawn(1), new PiecesExport_1.Pawn(1), new PiecesExport_1.Pawn(1), new PiecesExport_1.Pawn(1), new PiecesExport_1.Pawn(1), new PiecesExport_1.Pawn(1), new PiecesExport_1.Pawn(1), new PiecesExport_1.Pawn(1)],
                         [, , , , , , ,],
@@ -30,7 +30,7 @@ System.register(["./Coordinate", "./Pieces/PiecesExport"], function (exports_1, 
                     let x = 0;
                     let y = 0;
                     let found = false;
-                    this.state.forEach(column => {
+                    this.position.forEach(column => {
                         column.forEach(piece => {
                             if (piece.name == name) {
                                 result.push(new Coordinate_1.Coordinate(x, y));

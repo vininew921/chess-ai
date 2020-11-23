@@ -1,6 +1,6 @@
 import { Board } from "./Board";
 
-class GameState {
+class GameController {
 
     gameBoard: HTMLCanvasElement;
     gameBoardHeight: number;
@@ -10,11 +10,26 @@ class GameState {
     constructor() {
         this.board = new Board();
         this.gameBoard = <HTMLCanvasElement>document.getElementById('gameBoard');
+        this.gameBoard.addEventListener("click", (event: MouseEvent) => {
+            console.log(this.getPiece(event));
+        });
 
         this.gameBoardHeight = 480;
         this.gameBoardWidth = 480;
 
         this.drawBoard();
+    }
+
+    getPiece (ev: MouseEvent){
+        var rect = this.gameBoard.getBoundingClientRect();
+        
+        let mouseY = ev.clientX - rect.left;
+        let mouseX = ev.clientY - rect.top;
+
+        let indexX = Math.floor(mouseX / (this.gameBoardWidth / 8));
+        let indexY = Math.floor(mouseY / (this.gameBoardHeight / 8));
+
+        return this.board.position[indexX][indexY];
     }
 
     drawBoard() {
@@ -38,16 +53,17 @@ class GameState {
             }
         }
         this.drawPieces();
-        console.log(this.board.getPiecePosition('Knight'));
     }
 
     drawPieces(){
+        let pieceId = 0;
         let context = this.gameBoard.getContext("2d");
-        console.log(this.board.state);
         for(var i = 0; i < 8; i++){
             for(var j = 0; j < 8; j++){
-                var p = this.board.state[j][i];
+                var p = this.board.position[j][i];
                 if(p != undefined){
+                    pieceId++;
+                    p.id = pieceId;
                     var player;
                     if(p.player == 0){
                         player = "white";
@@ -65,5 +81,5 @@ class GameState {
     }
 }
 
-new GameState();
+new GameController();
 

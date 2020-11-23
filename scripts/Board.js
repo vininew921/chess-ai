@@ -24,23 +24,36 @@ System.register(["./Coordinate", "./Pieces/PiecesExport"], function (exports_1, 
                         [new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0)],
                         [new PiecesExport_1.Rook(0), new PiecesExport_1.Knight(0), new PiecesExport_1.Bishop(0), new PiecesExport_1.Queen(0), new PiecesExport_1.King(0), new PiecesExport_1.Bishop(0), new PiecesExport_1.Knight(0), new PiecesExport_1.Rook(0)],
                     ];
+                    this.SetPiecesPosition();
                 }
-                getPiecePosition(name) {
-                    let result = new Array();
-                    let x = 0;
-                    let y = 0;
-                    let found = false;
-                    this.position.forEach(column => {
-                        column.forEach(piece => {
-                            if (piece.name == name) {
-                                result.push(new Coordinate_1.Coordinate(x, y));
+                SetPiecesPosition() {
+                    for (var i = 0; i < 8; i++) {
+                        for (var j = 0; j < 8; j++) {
+                            let piece = this.GetBoard()[j][i];
+                            if (piece != undefined) {
+                                piece.position = new Coordinate_1.Coordinate(i, j);
                             }
-                            y++;
+                        }
+                    }
+                }
+                GetBoard() {
+                    return this.position;
+                }
+                GetPieceByPosition(x, y) {
+                    return this.position[x][y];
+                }
+                GetPoints(player) {
+                    var points = 0;
+                    this.position.forEach(element => {
+                        element.forEach(p => {
+                            if (p != undefined) {
+                                if (p.player == player) {
+                                    points += p.value;
+                                }
+                            }
                         });
-                        y = 0;
-                        x++;
                     });
-                    return result;
+                    return points;
                 }
             };
             exports_1("Board", Board);

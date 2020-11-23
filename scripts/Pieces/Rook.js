@@ -14,9 +14,6 @@ System.register(["./Piece"], function (exports_1, context_1) {
                     super(player, 'Rook');
                     this.value = 5;
                 }
-                Move() {
-                    throw new Error("Method not implemented.");
-                }
                 PossibleMoves() {
                     throw new Error("Method not implemented.");
                 }

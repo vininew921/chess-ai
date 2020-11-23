@@ -1,3 +1,4 @@
+import { Board } from "../Board";
 import { Coordinate } from "../Coordinate";
 
 export abstract class Piece {
@@ -5,6 +6,7 @@ export abstract class Piece {
     name: string;
     texture: string;
     id: number;
+    position: Coordinate;
 
     abstract value: number;
     
@@ -20,8 +22,6 @@ export abstract class Piece {
         }
     }
 
-    abstract Move(): void;
-
-    abstract PossibleMoves(): Array<Coordinate>;
+    abstract PossibleMoves(b: Board): Array<Coordinate>;
 
 }

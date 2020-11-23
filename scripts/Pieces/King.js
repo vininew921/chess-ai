@@ -14,9 +14,6 @@ System.register(["./Piece"], function (exports_1, context_1) {
                     super(player, 'King');
                     this.value = 999;
                 }
-                Move() {
-                    throw new Error("Method not implemented.");
-                }
                 PossibleMoves() {
                     throw new Error("Method not implemented.");
                 }

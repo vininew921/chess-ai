@@ -3,7 +3,7 @@ import { Piece } from "./Pieces/Piece";
 import { Bishop, King, Queen, Knight, Pawn, Rook } from "./Pieces/PiecesExport";
 
 export class Board {
-    position: Array<Array<Piece>>;
+    private position: Array<Array<Piece>>;
 
     constructor() {
         this.position = [
@@ -17,25 +17,41 @@ export class Board {
             [new Rook(0), new Knight(0), new Bishop(0), new Queen(0), new King(0), new Bishop(0), new Knight(0), new Rook(0)],
         ];
 
+        this.SetPiecesPosition();
     }
 
-    public getPiecePosition(name: string) {
-        let result: Array<Coordinate> = new Array<Coordinate>();
-        let x: number = 0;
-        let y: number = 0;
-        let found: boolean = false;
-        this.position.forEach(column => {
-            column.forEach(piece => {
-                if(piece.name == name){
-                    result.push(new Coordinate(x, y));
+    SetPiecesPosition(): void{
+        for(var i = 0; i < 8; i++){
+            for(var j = 0; j < 8; j++){
+                let piece = this.GetBoard()[j][i];
+                if(piece != undefined){
+                    piece.position = new Coordinate(i, j);
                 }
-                y++;
+            }
+        }
+    }
+
+    public GetBoard(): Array<Array<Piece>>{
+        return this.position;
+    }
+
+    public GetPieceByPosition(x: number, y: number): Piece {
+        return this.position[x][y];
+    }
+
+    public GetPoints(player: number): number{
+        var points = 0;
+        this.position.forEach(element => {
+            element.forEach(p => {
+                if(p != undefined){
+                    if(p.player == player){
+                        points += p.value;
+                    }
+                }
             });
-            y = 0;
-            x++;
         });
 
-        return result;
+        return points;
     }
 
 }

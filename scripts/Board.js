@@ -40,6 +40,10 @@ System.register(["./Coordinate", "./Pieces/PiecesExport"], function (exports_1, 
                 MovePiece(piece, newPos) {
                     this.position[piece.position.x][piece.position.y] = undefined;
                     piece.position = newPos;
+                    if (piece != undefined) {
+                        var p = piece;
+                        p.firstMove = false;
+                    }
                     this.position[newPos.x][newPos.y] = piece;
                 }
                 GetBoard() {

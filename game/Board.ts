@@ -37,6 +37,11 @@ export class Board {
 
         piece.position = newPos;
 
+        if(piece as Pawn != undefined){
+            var p = piece as Pawn;
+            p.firstMove = false;
+        }
+
         this.position[newPos.x][newPos.y] = piece;
     }
 

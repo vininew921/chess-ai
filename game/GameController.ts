@@ -15,6 +15,7 @@ class GameController {
     gameBoard: HTMLCanvasElement;
     gameBoardHeight: number;
     gameBoardWidth: number;
+    gameHeader: HTMLHeadElement;
     board: Board;
     selectedPiece: Piece;
     possibleMoves: Array<Coordinate>;
@@ -25,12 +26,15 @@ class GameController {
         this.player = 0;
         this.whitePoints = this.board.GetPoints(0);
         this.blackPoints = this.board.GetPoints(1);
+        this.totalPoints = this.whitePoints - this.blackPoints;
 
         this.gameBoard = <HTMLCanvasElement>document.getElementById('gameBoard');
+        this.gameHeader = <HTMLHeadElement>document.getElementById('gameInfo');
+        this.SetHeader();
         this.gameBoard.addEventListener("click", (event: MouseEvent) => {
             let clicked = this.EventToCoordinate(event);
             let newPiece = this.GetPiece(clicked);
-            this.selectedPiece = newPiece == undefined ? this.selectedPiece : newPiece;
+            this.selectedPiece = newPiece == undefined || newPiece.player != this.player ? this.selectedPiece : newPiece;
             if(newPiece){
                 if(this.selectedPiece.player == this.player){
                     this.ShowAvailableMoves();
@@ -44,28 +48,44 @@ class GameController {
         this.DrawBoard();
     }
 
-    CheckMove(c: Coordinate){
+    SetHeader(): void{
+        this.gameHeader.innerHTML = `
+            Player: ${this.player == 0 ? 'White' : 'Black'} <br>
+            Turn: ${this.turn} <br>
+            Evaluation: ${this.totalPoints} <br>
+        `
+    }
+
+    CheckMove(c: Coordinate): void{
         if(this.possibleMoves){
-            console.log(`CheckMove: (${c.x}, ${c.y})`);
             this.possibleMoves.forEach(pm => {
                 if(pm.x == c.x && pm.y == c.y){
-                    console.log(pm);
-                    console.log(`Move piece ${this.selectedPiece.texture} from (${this.selectedPiece.position.x}, ${this.selectedPiece.position.y}) to (${c.x}, ${c.y})`);
                     this.board.MovePiece(this.selectedPiece, c);
                     this.ChangeTurn();
-                    this.DrawBoard();
                 }
             });
         }
     }
 
     ChangeTurn(): void{
+        this.possibleMoves = null;
+        this.DrawBoard();
+        console.clear();
+        console.table(this.board.GetBoard());
+
+        this.whitePoints = this.board.GetPoints(0);
+        this.blackPoints = this.board.GetPoints(1);
+        this.totalPoints = this.whitePoints - this.blackPoints;
+
         if(this.player == 0){
             this.player = 1;
         }
         else{
             this.player = 0;
+            this.turn += 1;
         }
+
+        this.SetHeader();
     }
 
     ShowAvailableMoves(): void{
@@ -74,8 +94,6 @@ class GameController {
 
         let context = this.gameBoard.getContext("2d");
         context.fillStyle = "#00FFFF";
-
-        console.log(this.possibleMoves);
 
         this.possibleMoves.forEach(c => {
             var posX = c.y * (this.gameBoardWidth / 8);

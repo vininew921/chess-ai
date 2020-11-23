@@ -19,11 +19,14 @@ System.register(["./Board", "./Coordinate"], function (exports_1, context_1) {
                     this.player = 0;
                     this.whitePoints = this.board.GetPoints(0);
                     this.blackPoints = this.board.GetPoints(1);
+                    this.totalPoints = this.whitePoints - this.blackPoints;
                     this.gameBoard = document.getElementById('gameBoard');
+                    this.gameHeader = document.getElementById('gameInfo');
+                    this.SetHeader();
                     this.gameBoard.addEventListener("click", (event) => {
                         let clicked = this.EventToCoordinate(event);
                         let newPiece = this.GetPiece(clicked);
-                        this.selectedPiece = newPiece == undefined ? this.selectedPiece : newPiece;
+                        this.selectedPiece = newPiece == undefined || newPiece.player != this.player ? this.selectedPiece : newPiece;
                         if (newPiece) {
                             if (this.selectedPiece.player == this.player) {
                                 this.ShowAvailableMoves();
@@ -35,34 +38,45 @@ System.register(["./Board", "./Coordinate"], function (exports_1, context_1) {
                     this.gameBoardWidth = 480;
                     this.DrawBoard();
                 }
+                SetHeader() {
+                    this.gameHeader.innerHTML = `
+            Player: ${this.player == 0 ? 'White' : 'Black'} <br>
+            Turn: ${this.turn} <br>
+            Evaluation: ${this.totalPoints} <br>
+        `;
+                }
                 CheckMove(c) {
                     if (this.possibleMoves) {
-                        console.log(`CheckMove: (${c.x}, ${c.y})`);
                         this.possibleMoves.forEach(pm => {
                             if (pm.x == c.x && pm.y == c.y) {
-                                console.log(pm);
-                                console.log(`Move piece ${this.selectedPiece.texture} from (${this.selectedPiece.position.x}, ${this.selectedPiece.position.y}) to (${c.x}, ${c.y})`);
                                 this.board.MovePiece(this.selectedPiece, c);
                                 this.ChangeTurn();
-                                this.DrawBoard();
                             }
                         });
                     }
                 }
                 ChangeTurn() {
+                    this.possibleMoves = null;
+                    this.DrawBoard();
+                    console.clear();
+                    console.table(this.board.GetBoard());
+                    this.whitePoints = this.board.GetPoints(0);
+                    this.blackPoints = this.board.GetPoints(1);
+                    this.totalPoints = this.whitePoints - this.blackPoints;
                     if (this.player == 0) {
                         this.player = 1;
                     }
                     else {
                         this.player = 0;
+                        this.turn += 1;
                     }
+                    this.SetHeader();
                 }
                 ShowAvailableMoves() {
                     this.DrawBoard();
                     this.possibleMoves = this.selectedPiece.PossibleMoves(this.board);
                     let context = this.gameBoard.getContext("2d");
                     context.fillStyle = "#00FFFF";
-                    console.log(this.possibleMoves);
                     this.possibleMoves.forEach(c => {
                         var posX = c.y * (this.gameBoardWidth / 8);
                         var posY = c.x * (this.gameBoardHeight / 8);

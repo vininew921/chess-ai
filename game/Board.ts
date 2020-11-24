@@ -12,7 +12,7 @@ export class Board {
             [,,,,,,,],
             [,,,,,,,],
             [,,,,,,,],
-            [,,,,,,,],
+            [,,,new Queen(0),,,,],
             [new Pawn(0), new Pawn(0), new Pawn(0), new Pawn(0), new Pawn(0), new Pawn(0), new Pawn(0), new Pawn(0)],
             [new Rook(0), new Knight(0), new Bishop(0), new Queen(0), new King(0), new Bishop(0), new Knight(0), new Rook(0)],
         ];

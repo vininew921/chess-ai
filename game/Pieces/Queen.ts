@@ -11,21 +11,162 @@ export class Queen extends Piece {
         let indexX = this.position.x;
         let indexY = this.position.y;
 
+        let foundLeft = false;
+        let foundRight = false;
+        let foundUp = false;
+        let foundDown = false;
+        let foundDLUp = false;
+        let foundDLDown = false;
+        let foundDRUp = false;
+        let foundDRDown = false;
+
+        console.log(this.position);
+         
         for(var i = 0; i < 8; i++){
             for(var j = 0; j < 8; j++){
                 var c = new Coordinate(i, j);
-                if((c.x != this.position.x || c.y != this.position.y) && (!b.GetPieceByPosition(c) || b.GetPieceByPosition(c).player != this.player)){
+                if((c.x != this.position.x || c.y != this.position.y)){
+
+                    //Horizontal
                     if(c.x == this.position.x){
-                        result.push(new Coordinate(this.position.x, c.y));
+                        let availablePos = new Coordinate(this.position.x, c.y);
+                        let lookingPiece = b.GetPieceByPosition(availablePos);
+                        if(c.y > this.position.y){
+                            if(!foundRight){
+                                if(lookingPiece){
+                                    foundRight = true;
+                                    if(lookingPiece.player != this.player){
+                                        result.push(availablePos);
+                                    }
+                                }
+                                else{
+                                    result.push(availablePos);
+                                }
+                            }
+                        }
+                        else if(c.y < this.position.y){
+                            let inverseY = this.position.y - 1 - c.y;
+                            let inverseAvailable = new Coordinate(availablePos.x, inverseY);
+                            lookingPiece = b.GetPieceByPosition(inverseAvailable);
+                            if(!foundLeft){
+                                if(lookingPiece){
+                                    foundLeft = true;
+                                    if(lookingPiece.player != this.player){
+                                        result.push(inverseAvailable);
+                                    }
+                                }
+                                else{
+                                    result.push(inverseAvailable);
+                                }
+                            }
+                        }
                     }
+
+                    //Vertical
                     if(c.y == this.position.y){
-                        result.push(new Coordinate(c.x, this.position.y));
+                        let availablePos = new Coordinate(c.x, this.position.y);
+                        let lookingPiece = b.GetPieceByPosition(availablePos);
+                        if(c.x > this.position.x){
+                            if(!foundDown){
+                                if(lookingPiece){
+                                    foundDown = true;
+                                    if(lookingPiece.player != this.player){
+                                        result.push(availablePos);
+                                    }
+                                }
+                                else{
+                                    result.push(availablePos);
+                                }
+                            }
+                        }
+                        else if(c.x < this.position.x){
+                            let inverseX = this.position.x - 1 - c.x;
+                            let inverseAvailable = new Coordinate(inverseX, availablePos.y);
+                            lookingPiece = b.GetPieceByPosition(inverseAvailable);
+                            if(!foundUp){
+                                if(lookingPiece){
+                                    foundUp = true;
+                                    if(lookingPiece.player != this.player){
+                                        result.push(inverseAvailable);
+                                    }
+                                }
+                                else{
+                                    result.push(inverseAvailable);
+                                }
+                            }
+                        }
                     }
+
+                    //Diagonal right
                     if(c.x + c.y == this.position.x + this.position.y){
-                        result.push(new Coordinate(c.x, c.y));
+                        let availablePos = new Coordinate(c.x, c.y);
+                        let lookingPiece = b.GetPieceByPosition(availablePos);
+                        if(c.y < this.position.y){
+                            if(!foundDRDown){
+                                if(lookingPiece){
+                                    foundDRDown = true;
+                                    if(lookingPiece.player != this.player){
+                                        result.push(availablePos);
+                                    }
+                                }
+                                else{
+                                    result.push(availablePos);
+                                }
+                            }
+                        }
+                        else if(c.y > this.position.y){
+                            let inverseX = this.position.x - 1 - c.x;
+                            let inverseY = this.position.y + 1 + c.x;
+                            let inverseAvailable = new Coordinate(inverseX, inverseY);
+                            lookingPiece = b.GetPieceByPosition(inverseAvailable);
+                            if(!foundDRUp){
+                                if(lookingPiece){
+                                    foundDRUp = true;
+                                    if(lookingPiece.player != this.player){
+                                        result.push(inverseAvailable);
+                                    }
+                                }
+                                else{
+                                    result.push(inverseAvailable);
+                                }
+                            }
+                        }
                     }
+
+                    //Diagonal left
                     if(c.x - c.y == this.position.x - this.position.y){
-                        result.push(new Coordinate(c.x, c.y));
+                        let availablePos = new Coordinate(c.x, c.y);
+                        let lookingPiece = b.GetPieceByPosition(availablePos);
+                        if(c.x > this.position.x){
+                            if(!foundDLDown){
+                                if(lookingPiece){
+                                    foundDLDown = true;
+                                    if(lookingPiece.player != this.player){
+                                        result.push(availablePos);
+                                    }
+                                }
+                                else{
+                                    result.push(availablePos);
+                                }
+                            }
+                        }
+                        else if(c.x < this.position.x){
+                            let inverseX = this.position.x - 1 - c.x;
+                            let inverseY = this.position.y - 1 - c.x;
+                            let inverseAvailable = new Coordinate(inverseX, inverseY);
+                            lookingPiece = b.GetPieceByPosition(inverseAvailable);
+                            if(!foundDLUp){
+                                if(lookingPiece){
+                                    foundDLUp = true;
+                                    if(lookingPiece.player != this.player){
+                                        result.push(inverseAvailable);
+                                    }
+                                }
+                                else{
+                                    result.push(inverseAvailable);
+                                }
+                            }
+                        }
                     }
                 }
                 

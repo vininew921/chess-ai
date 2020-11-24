@@ -50,6 +50,9 @@ export class Board {
     }
 
     public GetPieceByPosition(c: Coordinate): Piece {
+        if(c.x < 0 || c.x > 7 || c.y < 0 || c.y > 7){
+            return null;
+        }
         return this.position[c.x][c.y];
     }
 

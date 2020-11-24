@@ -8,15 +8,11 @@ export class Rook extends Piece {
     
     PossibleMoves(b: Board): Array<Coordinate> {
         let result = new Array<Coordinate>();
-        let indexX = this.position.x;
-        let indexY = this.position.y;
 
         let foundLeft = false;
         let foundRight = false;
         let foundUp = false;
         let foundDown = false;
-        let foundDRight = false;
-        let foundDLeft = false;
          
         for(var i = 0; i < 8; i++){
             for(var j = 0; j < 8; j++){

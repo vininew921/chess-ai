@@ -4,7 +4,8 @@
   "description": "Chess AI",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "watch": "tsc -w",
+    "start": "tsc && electron ."
   },
   "repository": {
     "type": "git",

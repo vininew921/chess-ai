@@ -8,13 +8,7 @@ export class Bishop extends Piece {
     
     PossibleMoves(b: Board): Array<Coordinate> {
         let result = new Array<Coordinate>();
-        let indexX = this.position.x;
-        let indexY = this.position.y;
 
-        let foundLeft = false;
-        let foundRight = false;
-        let foundUp = false;
-        let foundDown = false;
         let foundDLUp = false;
         let foundDLDown = false;
         let foundDRUp = false;

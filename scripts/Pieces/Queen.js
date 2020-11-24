@@ -19,8 +19,6 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                 }
                 PossibleMoves(b) {
                     let result = new Array();
-                    let indexX = this.position.x;
-                    let indexY = this.position.y;
                     let foundLeft = false;
                     let foundRight = false;
                     let foundUp = false;

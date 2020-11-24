@@ -19,14 +19,10 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                 }
                 PossibleMoves(b) {
                     let result = new Array();
-                    let indexX = this.position.x;
-                    let indexY = this.position.y;
                     let foundLeft = false;
                     let foundRight = false;
                     let foundUp = false;
                     let foundDown = false;
-                    let foundDRight = false;
-                    let foundDLeft = false;
                     for (var i = 0; i < 8; i++) {
                         for (var j = 0; j < 8; j++) {
                             var c = new Coordinate_1.Coordinate(i, j);

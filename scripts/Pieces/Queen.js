@@ -29,7 +29,6 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                     let foundDLDown = false;
                     let foundDRUp = false;
                     let foundDRDown = false;
-                    console.log(this.position);
                     for (var i = 0; i < 8; i++) {
                         for (var j = 0; j < 8; j++) {
                             var c = new Coordinate_1.Coordinate(i, j);
@@ -120,14 +119,14 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                         }
                                     }
                                     else if (c.y > this.position.y) {
-                                        let inverseX = this.position.x - 1 - c.x;
-                                        let inverseY = this.position.y + 1 + c.x;
+                                        let inverseX = this.position.x - 1 - c.x + (c.x + c.y > 7 ? c.x + c.y - 7 : 0);
+                                        let inverseY = this.position.y + 1 + c.x - (c.x + c.y > 7 ? c.x + c.y - 7 : 0);
                                         let inverseAvailable = new Coordinate_1.Coordinate(inverseX, inverseY);
                                         lookingPiece = b.GetPieceByPosition(inverseAvailable);
                                         if (!foundDRUp) {
                                             if (lookingPiece) {
                                                 foundDRUp = true;
-                                                if (lookingPiece.player != this.player) {
+                                                if (lookingPiece.player != this.player) { //2,6
                                                     result.push(inverseAvailable);
                                                 }
                                             }
@@ -155,8 +154,8 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                         }
                                     }
                                     else if (c.x < this.position.x) {
-                                        let inverseX = this.position.x - 1 - c.x;
-                                        let inverseY = this.position.y - 1 - c.x;
+                                        let inverseX = this.position.x - 1 - c.x + (c.x - c.y > 0 ? c.x - c.y : 0);
+                                        let inverseY = this.position.y - 1 - c.x + (c.x - c.y > 0 ? c.x - c.y : 0);
                                         let inverseAvailable = new Coordinate_1.Coordinate(inverseX, inverseY);
                                         lookingPiece = b.GetPieceByPosition(inverseAvailable);
                                         if (!foundDLUp) {

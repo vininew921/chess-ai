@@ -20,7 +20,7 @@ System.register(["./Coordinate", "./Pieces/PiecesExport"], function (exports_1, 
                         [, , , , , , ,],
                         [, , , , , , ,],
                         [, , , , , , ,],
-                        [, , , new PiecesExport_1.Queen(0), , , ,],
+                        [, , , , , , ,],
                         [new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0), new PiecesExport_1.Pawn(0)],
                         [new PiecesExport_1.Rook(0), new PiecesExport_1.Knight(0), new PiecesExport_1.Bishop(0), new PiecesExport_1.Queen(0), new PiecesExport_1.King(0), new PiecesExport_1.Bishop(0), new PiecesExport_1.Knight(0), new PiecesExport_1.Rook(0)],
                     ];

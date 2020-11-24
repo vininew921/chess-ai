@@ -46,6 +46,7 @@ class GameController {
         this.gameBoardHeight = 480;
         this.gameBoardWidth = 480;
         this.DrawBoard();
+        this.DrawCoordinates();
     }
 
     SetHeader(): void{
@@ -104,6 +105,7 @@ class GameController {
                 this.DrawPiece(redrawPiece, context);
             }
         });
+        this.DrawCoordinates();
     }
     
     EventToCoordinate(ev: MouseEvent): Coordinate{
@@ -132,6 +134,7 @@ class GameController {
                 var startX = b * this.gameBoardWidth / 8;
                 if (a % 2 == 0) startX = (b + 1) * this.gameBoardWidth / 8;
                 
+                
                 context.fillRect(startX + left, (a * this.gameBoardWidth / 8), this.gameBoardWidth / 8, this.gameBoardWidth / 8);
                 context.rect(startX + left, (a * this.gameBoardWidth / 8), this.gameBoardWidth / 8, this.gameBoardWidth / 8);
                 context.stroke();
@@ -143,9 +146,21 @@ class GameController {
                 context.fillRect(startX + left, (a * this.gameBoardWidth / 8), this.gameBoardWidth / 8, this.gameBoardWidth / 8);
                 context.rect(startX + left, (a * this.gameBoardWidth / 8), this.gameBoardWidth / 8, this.gameBoardWidth / 8);
                 context.stroke();
+                
             }
         }
         this.DrawPieces();
+    }
+
+    DrawCoordinates(){
+        return;
+        let context = this.gameBoard.getContext("2d");
+        for(var i = 0; i < 8; i++){
+            for(var j = 0; j < 8; j++){
+                context.strokeStyle = "#FF0000";
+                context.strokeText(`${i}, ${j}`, j * this.gameBoardWidth / 8 + 2, i * this.gameBoardWidth / 8 + 10);
+            }
+        }
     }
 
     DrawPieces(){

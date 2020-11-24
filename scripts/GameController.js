@@ -37,6 +37,7 @@ System.register(["./Board", "./Coordinate"], function (exports_1, context_1) {
                     this.gameBoardHeight = 480;
                     this.gameBoardWidth = 480;
                     this.DrawBoard();
+                    this.DrawCoordinates();
                 }
                 SetHeader() {
                     this.gameHeader.innerHTML = `
@@ -86,6 +87,7 @@ System.register(["./Board", "./Coordinate"], function (exports_1, context_1) {
                             this.DrawPiece(redrawPiece, context);
                         }
                     });
+                    this.DrawCoordinates();
                 }
                 EventToCoordinate(ev) {
                     var rect = this.gameBoard.getBoundingClientRect();
@@ -123,6 +125,16 @@ System.register(["./Board", "./Coordinate"], function (exports_1, context_1) {
                         }
                     }
                     this.DrawPieces();
+                }
+                DrawCoordinates() {
+                    return;
+                    let context = this.gameBoard.getContext("2d");
+                    for (var i = 0; i < 8; i++) {
+                        for (var j = 0; j < 8; j++) {
+                            context.strokeStyle = "#FF0000";
+                            context.strokeText(`${i}, ${j}`, j * this.gameBoardWidth / 8 + 2, i * this.gameBoardWidth / 8 + 10);
+                        }
+                    }
                 }
                 DrawPieces() {
                     let pieceId = 0;

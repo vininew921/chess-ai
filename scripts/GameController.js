@@ -20,6 +20,10 @@ System.register(["./Board", "./Coordinate"], function (exports_1, context_1) {
                     this.whitePoints = this.board.GetPoints(0);
                     this.blackPoints = this.board.GetPoints(1);
                     this.totalPoints = this.whitePoints - this.blackPoints;
+                    // this.oddSquareColor = "#D2691E"; //brown
+                    this.oddSquareColor = "#1da2db"; // blue
+                    this.evenSquareColor = "#FFFFFF";
+                    this.possibleMoveColor = "rgba(114, 126, 133, 0.8)";
                     this.gameBoard = document.getElementById('gameBoard');
                     this.gameHeader = document.getElementById('gameInfo');
                     this.SetHeader();
@@ -77,15 +81,19 @@ System.register(["./Board", "./Coordinate"], function (exports_1, context_1) {
                     this.DrawBoard();
                     this.possibleMoves = this.selectedPiece.PossibleMoves(this.board);
                     let context = this.gameBoard.getContext("2d");
-                    context.fillStyle = "#00FFFF";
+                    context.fillStyle = this.possibleMoveColor;
                     this.possibleMoves.forEach(c => {
                         var posX = c.y * (this.gameBoardWidth / 8);
                         var posY = c.x * (this.gameBoardHeight / 8);
-                        context.fillRect(posX + 1, posY + 1, (this.gameBoardWidth / 8) - 2, (this.gameBoardHeight / 8) - 2);
-                        let redrawPiece = this.GetPiece(c);
-                        if (redrawPiece) {
-                            this.DrawPiece(redrawPiece, context);
-                        }
+                        //context.fillRect(posX + 1, posY + 1, (this.gameBoardWidth / 8) - 2, (this.gameBoardHeight / 8) - 2);
+                        context.beginPath();
+                        context.ellipse(posX + (this.gameBoardWidth / 8) / 2, posY + (this.gameBoardHeight / 8) / 2, 10, 10, 0, 0, Math.PI * 2);
+                        context.fill();
+                        context.closePath();
+                        // let redrawPiece = this.GetPiece(c);
+                        // if(redrawPiece){
+                        //     // this.DrawPiece(redrawPiece, context);
+                        // }
                     });
                     this.DrawCoordinates();
                 }
@@ -102,26 +110,23 @@ System.register(["./Board", "./Coordinate"], function (exports_1, context_1) {
                 }
                 DrawBoard() {
                     let context = this.gameBoard.getContext("2d");
-                    context.strokeStyle = "#000000";
                     var left = 0;
                     for (var a = 0; a < 8; a++) {
-                        context.fillStyle = "#D2691E";
+                        context.fillStyle = this.oddSquareColor;
                         for (var b = 0; b < 8; b += 2) {
                             var startX = b * this.gameBoardWidth / 8;
                             if (a % 2 == 0)
                                 startX = (b + 1) * this.gameBoardWidth / 8;
                             context.fillRect(startX + left, (a * this.gameBoardWidth / 8), this.gameBoardWidth / 8, this.gameBoardWidth / 8);
                             context.rect(startX + left, (a * this.gameBoardWidth / 8), this.gameBoardWidth / 8, this.gameBoardWidth / 8);
-                            context.stroke();
                         }
-                        context.fillStyle = "#FFFFFF";
+                        context.fillStyle = this.evenSquareColor;
                         for (var b = 1; b < 8; b += 2) {
                             var startX = b * this.gameBoardWidth / 8;
                             if (a % 2 == 0)
                                 startX = (b - 1) * this.gameBoardWidth / 8;
                             context.fillRect(startX + left, (a * this.gameBoardWidth / 8), this.gameBoardWidth / 8, this.gameBoardWidth / 8);
                             context.rect(startX + left, (a * this.gameBoardWidth / 8), this.gameBoardWidth / 8, this.gameBoardWidth / 8);
-                            context.stroke();
                         }
                     }
                     this.DrawPieces();

@@ -99,6 +99,7 @@ System.register(["./Board", "./Coordinate"], function (exports_1, context_1) {
                         //     // this.DrawPiece(redrawPiece, context);
                         // }
                     });
+                    console.log(this.selectedPiece.attacking);
                     this.DrawCoordinates();
                 }
                 EventToCoordinate(ev) {

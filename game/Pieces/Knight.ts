@@ -9,6 +9,7 @@ export class Knight extends Piece {
     PossibleMoves(b: Board): Coordinate[] {
         let tempResult = new Array<Coordinate>();
         let result = new Array<Coordinate>();
+        this.attacking = new Array<Coordinate>();
 
         tempResult.push(new Coordinate(this.position.x - 2, this.position.y + 1));
         tempResult.push(new Coordinate(this.position.x - 2, this.position.y - 1));
@@ -26,6 +27,7 @@ export class Knight extends Piece {
                 if(!p || p.player != this.player){
                     result.push(tempResult[i]);
                 }
+                this.attacking.push(tempResult[i]);
             }
         }
 

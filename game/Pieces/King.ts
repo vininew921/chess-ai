@@ -11,6 +11,8 @@ export class King extends Piece {
 
         let tempResult = new Array<Coordinate>();
 
+        this.attacking = new Array<Coordinate>();
+
         tempResult.push(new Coordinate(this.position.x + 1, this.position.y + 1));
         tempResult.push(new Coordinate(this.position.x + 1, this.position.y - 1));
         tempResult.push(new Coordinate(this.position.x - 1, this.position.y + 1));
@@ -22,9 +24,14 @@ export class King extends Piece {
         tempResult.push(new Coordinate(this.position.x - 1, this.position.y));
 
         for(var i = 0; i < tempResult.length; i++){
-            if(!b.GetPieceByPosition(tempResult[i]) || b.GetPieceByPosition(tempResult[i]).player != this.player){
-                result.push(tempResult[i]);
+            if(!(tempResult[i].x < 0 || tempResult[i].x > 7 || tempResult[i].y < 0 || tempResult[i].y > 7)){
+                let p = b.GetPieceByPosition(tempResult[i]);
+                if(!p || p.player != this.player){
+                    result.push(tempResult[i]);
+                }
+                this.attacking.push(tempResult[i]);
             }
+            
         }
 
         return result;

@@ -19,6 +19,7 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                 }
                 PossibleMoves(b) {
                     let result = new Array();
+                    this.attacking = new Array();
                     let foundLeft = false;
                     let foundRight = false;
                     let foundUp = false;
@@ -42,9 +43,11 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                                 if (lookingPiece.player != this.player) {
                                                     result.push(availablePos);
                                                 }
+                                                this.attacking.push(availablePos);
                                             }
                                             else {
                                                 result.push(availablePos);
+                                                this.attacking.push(availablePos);
                                             }
                                         }
                                     }
@@ -58,9 +61,11 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                                 if (lookingPiece.player != this.player) {
                                                     result.push(inverseAvailable);
                                                 }
+                                                this.attacking.push(inverseAvailable);
                                             }
                                             else {
                                                 result.push(inverseAvailable);
+                                                this.attacking.push(inverseAvailable);
                                             }
                                         }
                                     }
@@ -76,9 +81,11 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                                 if (lookingPiece.player != this.player) {
                                                     result.push(availablePos);
                                                 }
+                                                this.attacking.push(availablePos);
                                             }
                                             else {
                                                 result.push(availablePos);
+                                                this.attacking.push(availablePos);
                                             }
                                         }
                                     }
@@ -92,9 +99,11 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                                 if (lookingPiece.player != this.player) {
                                                     result.push(inverseAvailable);
                                                 }
+                                                this.attacking.push(inverseAvailable);
                                             }
                                             else {
                                                 result.push(inverseAvailable);
+                                                this.attacking.push(inverseAvailable);
                                             }
                                         }
                                     }
@@ -110,9 +119,11 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                                 if (lookingPiece.player != this.player) {
                                                     result.push(availablePos);
                                                 }
+                                                this.attacking.push(availablePos);
                                             }
                                             else {
                                                 result.push(availablePos);
+                                                this.attacking.push(availablePos);
                                             }
                                         }
                                     }
@@ -127,9 +138,11 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                                 if (lookingPiece.player != this.player) { //2,6
                                                     result.push(inverseAvailable);
                                                 }
+                                                this.attacking.push(inverseAvailable);
                                             }
                                             else {
                                                 result.push(inverseAvailable);
+                                                this.attacking.push(inverseAvailable);
                                             }
                                         }
                                     }
@@ -145,9 +158,11 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                                 if (lookingPiece.player != this.player) {
                                                     result.push(availablePos);
                                                 }
+                                                this.attacking.push(availablePos);
                                             }
                                             else {
                                                 result.push(availablePos);
+                                                this.attacking.push(availablePos);
                                             }
                                         }
                                     }
@@ -162,9 +177,11 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                                 if (lookingPiece.player != this.player) {
                                                     result.push(inverseAvailable);
                                                 }
+                                                this.attacking.push(inverseAvailable);
                                             }
                                             else {
                                                 result.push(inverseAvailable);
+                                                this.attacking.push(inverseAvailable);
                                             }
                                         }
                                     }

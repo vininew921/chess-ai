@@ -20,6 +20,7 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                 PossibleMoves(b) {
                     let tempResult = new Array();
                     let result = new Array();
+                    this.attacking = new Array();
                     tempResult.push(new Coordinate_1.Coordinate(this.position.x - 2, this.position.y + 1));
                     tempResult.push(new Coordinate_1.Coordinate(this.position.x - 2, this.position.y - 1));
                     tempResult.push(new Coordinate_1.Coordinate(this.position.x + 2, this.position.y + 1));
@@ -34,6 +35,7 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                             if (!p || p.player != this.player) {
                                 result.push(tempResult[i]);
                             }
+                            this.attacking.push(tempResult[i]);
                         }
                     }
                     return result;

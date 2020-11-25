@@ -27,6 +27,7 @@ export class Board {
                 let piece = this.GetBoard()[i][j];
                 if(piece != undefined){
                     piece.position = new Coordinate(i, j);
+                    piece.PossibleMoves(this);
                 }
             }
         }

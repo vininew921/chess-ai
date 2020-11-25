@@ -22,6 +22,7 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                     let result = new Array();
                     let indexX = this.position.x;
                     let indexY = this.position.y;
+                    this.attacking = new Array();
                     if (this.player == 0) {
                         if (this.position.x < 7) {
                             if (!b.GetPieceByPosition(new Coordinate_1.Coordinate(this.position.x - 1, this.position.y))) {
@@ -41,6 +42,8 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                             if (b.GetPieceByPosition(attackRight) && b.GetPieceByPosition(attackRight).player != this.player) {
                                 result.push(attackRight);
                             }
+                            this.attacking.push(attackLeft);
+                            this.attacking.push(attackRight);
                         }
                     }
                     else {
@@ -62,6 +65,8 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                             if (b.GetPieceByPosition(attackRight) && b.GetPieceByPosition(attackRight).player != this.player) {
                                 result.push(attackRight);
                             }
+                            this.attacking.push(attackLeft);
+                            this.attacking.push(attackRight);
                         }
                     }
                     return result;

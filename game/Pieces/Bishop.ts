@@ -8,6 +8,7 @@ export class Bishop extends Piece {
     
     PossibleMoves(b: Board): Array<Coordinate> {
         let result = new Array<Coordinate>();
+        this.attacking = new Array<Coordinate>();
 
         let foundDLUp = false;
         let foundDLDown = false;
@@ -30,9 +31,11 @@ export class Bishop extends Piece {
                                     if(lookingPiece.player != this.player){
                                         result.push(availablePos);
                                     }
+                                    this.attacking.push(availablePos);
                                 }
                                 else{
                                     result.push(availablePos);
+                                    this.attacking.push(availablePos);
                                 }
                             }
                         }
@@ -47,9 +50,11 @@ export class Bishop extends Piece {
                                     if(lookingPiece.player != this.player){ //2,6
                                         result.push(inverseAvailable);
                                     }
+                                    this.attacking.push(inverseAvailable);
                                 }
                                 else{
                                     result.push(inverseAvailable);
+                                    this.attacking.push(inverseAvailable);
                                 }
                             }
                         }
@@ -66,9 +71,11 @@ export class Bishop extends Piece {
                                     if(lookingPiece.player != this.player){
                                         result.push(availablePos);
                                     }
+                                    this.attacking.push(availablePos);
                                 }
                                 else{
                                     result.push(availablePos);
+                                    this.attacking.push(availablePos);
                                 }
                             }
                         }
@@ -85,9 +92,11 @@ export class Bishop extends Piece {
                                     if(lookingPiece.player != this.player){
                                         result.push(inverseAvailable);
                                     }
+                                    this.attacking.push(inverseAvailable);
                                 }
                                 else{
                                     result.push(inverseAvailable);
+                                    this.attacking.push(inverseAvailable);
                                 }
                             }
                         }

@@ -8,11 +8,14 @@ export abstract class Piece {
     id: number;
     position: Coordinate;
 
+    attacking: Array<Coordinate>;
+
     abstract value: number;
     
     constructor(p: number, n: string) {
         this.player = p;
         this.name = n;
+        this.attacking = new Array<Coordinate>();
 
         if(this.player == 0){
             this.texture =`${this.name.toLowerCase()}_white`;
@@ -20,6 +23,7 @@ export abstract class Piece {
         else{
             this.texture = `${this.name.toLowerCase()}_black`;
         }
+
     }
 
     abstract PossibleMoves(b: Board): Array<Coordinate>;

@@ -9,6 +9,7 @@ System.register([], function (exports_1, context_1) {
                 constructor(p, n) {
                     this.player = p;
                     this.name = n;
+                    this.attacking = new Array();
                     if (this.player == 0) {
                         this.texture = `${this.name.toLowerCase()}_white`;
                     }

@@ -33,6 +33,7 @@ System.register(["./Coordinate", "./Pieces/PiecesExport"], function (exports_1, 
                             let piece = this.GetBoard()[i][j];
                             if (piece != undefined) {
                                 piece.position = new Coordinate_1.Coordinate(i, j);
+                                piece.PossibleMoves(this);
                             }
                         }
                     }

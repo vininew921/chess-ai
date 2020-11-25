@@ -123,6 +123,7 @@ class GameController {
             // }
         });
 
+        console.log(this.selectedPiece.attacking);
         this.DrawCoordinates();
     }
     

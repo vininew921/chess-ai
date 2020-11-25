@@ -23,6 +23,7 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                     let foundRight = false;
                     let foundUp = false;
                     let foundDown = false;
+                    this.attacking = new Array();
                     for (var i = 0; i < 8; i++) {
                         for (var j = 0; j < 8; j++) {
                             var c = new Coordinate_1.Coordinate(i, j);
@@ -38,9 +39,11 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                                 if (lookingPiece.player != this.player) {
                                                     result.push(availablePos);
                                                 }
+                                                this.attacking.push(availablePos);
                                             }
                                             else {
                                                 result.push(availablePos);
+                                                this.attacking.push(availablePos);
                                             }
                                         }
                                     }
@@ -54,9 +57,11 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                                 if (lookingPiece.player != this.player) {
                                                     result.push(inverseAvailable);
                                                 }
+                                                this.attacking.push(inverseAvailable);
                                             }
                                             else {
                                                 result.push(inverseAvailable);
+                                                this.attacking.push(inverseAvailable);
                                             }
                                         }
                                     }
@@ -72,9 +77,11 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                                 if (lookingPiece.player != this.player) {
                                                     result.push(availablePos);
                                                 }
+                                                this.attacking.push(availablePos);
                                             }
                                             else {
                                                 result.push(availablePos);
+                                                this.attacking.push(availablePos);
                                             }
                                         }
                                     }
@@ -88,9 +95,11 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                                 if (lookingPiece.player != this.player) {
                                                     result.push(inverseAvailable);
                                                 }
+                                                this.attacking.push(inverseAvailable);
                                             }
                                             else {
                                                 result.push(inverseAvailable);
+                                                this.attacking.push(inverseAvailable);
                                             }
                                         }
                                     }

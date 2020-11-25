@@ -12,6 +12,8 @@ export class Pawn extends Piece {
         let indexX = this.position.x;
         let indexY = this.position.y;
 
+        this.attacking = new Array<Coordinate>();
+
         if(this.player == 0){
             if(this.position.x < 7){
                 if(!b.GetPieceByPosition(new Coordinate(this.position.x - 1, this.position.y))){
@@ -31,6 +33,8 @@ export class Pawn extends Piece {
                 if(b.GetPieceByPosition(attackRight) && b.GetPieceByPosition(attackRight).player != this.player){
                     result.push(attackRight);
                 }
+                this.attacking.push(attackLeft);
+                this.attacking.push(attackRight);
             }
         }
         else{
@@ -52,6 +56,8 @@ export class Pawn extends Piece {
                 if(b.GetPieceByPosition(attackRight) && b.GetPieceByPosition(attackRight).player != this.player){
                     result.push(attackRight);
                 }
+                this.attacking.push(attackLeft);
+                this.attacking.push(attackRight);
             }
         }
 

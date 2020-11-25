@@ -81,7 +81,6 @@ System.register(["./Coordinate", "./Pieces/PiecesExport"], function (exports_1, 
                             }
                         });
                     });
-                    console.log(`${c.x}, ${c.y}, ${currentPlayer == 0 ? 'White' : 'Black'}, ${result}`);
                     return result;
                 }
                 GetPoints(player) {

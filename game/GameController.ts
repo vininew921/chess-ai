@@ -41,7 +41,7 @@ class GameController {
         this.gameBoard = <HTMLCanvasElement>document.getElementById('gameBoard');
         this.gameHeader = <HTMLHeadElement>document.getElementById('gameInfo');
         this.SetHeader();
-        this.gameBoard.addEventListener("click", (event: MouseEvent) => {
+        this.gameBoard.addEventListener("mousedown", (event: MouseEvent) => {
             let clicked = this.EventToCoordinate(event);
             let newPiece = this.GetPiece(clicked);
             this.selectedPiece = newPiece == undefined || newPiece.player != this.player ? this.selectedPiece : newPiece;
@@ -51,6 +51,11 @@ class GameController {
                 }
             }
             this.CheckMove(clicked);
+        });
+
+        this.gameBoard.addEventListener("mouseup", (event: MouseEvent) =>{
+            let dropped = this.EventToCoordinate(event);
+            this.CheckMove(dropped);
         });
 
         this.gameBoardHeight = 460;
@@ -169,7 +174,8 @@ class GameController {
         this.DrawPieces();
     }
 
-    DrawCoordinates(){
+    DrawCoordinates(): any{
+        return;
         let context = this.gameBoard.getContext("2d");
         for(var i = 0; i < 8; i++){
             for(var j = 0; j < 8; j++){
@@ -179,7 +185,7 @@ class GameController {
         }
     }
 
-    DrawPieces(){
+    DrawPieces(): void{
         let pieceId = 0;
         let context = this.gameBoard.getContext("2d");
         for(var i = 0; i < 8; i++){
@@ -201,7 +207,7 @@ class GameController {
         }
     }
 
-    DrawPiece(p: Piece, context: CanvasRenderingContext2D){
+    DrawPiece(p: Piece, context: CanvasRenderingContext2D): void{
         let img = <CanvasImageSource>document.getElementById(`${p.texture}`);
         context.drawImage(img, p.position.y * this.gameBoardWidth / 8, p.position.x * this.gameBoardWidth / 8, this.gameBoardWidth / 8, this.gameBoardHeight / 8);
     }

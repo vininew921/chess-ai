@@ -18,11 +18,18 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                     this.value = 999;
                     this.moved = false;
                     this.inCheck = false;
+                    this.checkMate = false;
                 }
                 UpdatePossibleMoves(b) {
                     let tempResult = new Array();
                     this.attacking = new Array();
                     this.possibleMoves = new Array();
+                    if (b.IsSquareAttacked(this.position, this.player)) {
+                        this.inCheck = true;
+                        console.log('Check!');
+                        //When in check, add every piece that is checking the king.
+                        //When 
+                    }
                     tempResult.push(new Coordinate_1.Coordinate(this.position.x + 1, this.position.y + 1));
                     tempResult.push(new Coordinate_1.Coordinate(this.position.x + 1, this.position.y - 1));
                     tempResult.push(new Coordinate_1.Coordinate(this.position.x - 1, this.position.y + 1));
@@ -42,6 +49,10 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                             }
                             this.attacking.push(tempResult[i]);
                         }
+                    }
+                    if (this.inCheck && this.possibleMoves.length == 0) {
+                        this.checkMate = true;
+                        console.log('Mate!');
                     }
                 }
             };

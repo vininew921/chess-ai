@@ -28,7 +28,7 @@ System.register(["./Board", "./Coordinate"], function (exports_1, context_1) {
                     this.gameBoard = document.getElementById('gameBoard');
                     this.gameHeader = document.getElementById('gameInfo');
                     this.SetHeader();
-                    this.gameBoard.addEventListener("click", (event) => {
+                    this.gameBoard.addEventListener("mousedown", (event) => {
                         let clicked = this.EventToCoordinate(event);
                         let newPiece = this.GetPiece(clicked);
                         this.selectedPiece = newPiece == undefined || newPiece.player != this.player ? this.selectedPiece : newPiece;
@@ -38,6 +38,10 @@ System.register(["./Board", "./Coordinate"], function (exports_1, context_1) {
                             }
                         }
                         this.CheckMove(clicked);
+                    });
+                    this.gameBoard.addEventListener("mouseup", (event) => {
+                        let dropped = this.EventToCoordinate(event);
+                        this.CheckMove(dropped);
                     });
                     this.gameBoardHeight = 460;
                     this.gameBoardWidth = 460;
@@ -137,6 +141,7 @@ System.register(["./Board", "./Coordinate"], function (exports_1, context_1) {
                     this.DrawPieces();
                 }
                 DrawCoordinates() {
+                    return;
                     let context = this.gameBoard.getContext("2d");
                     for (var i = 0; i < 8; i++) {
                         for (var j = 0; j < 8; j++) {

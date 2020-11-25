@@ -23,11 +23,16 @@ class GameController {
     evenSquareColor: string;
     oddSquareColor: string;
     possibleMoveColor: string;
+    holdingPiece: boolean;
+    clientMouseX: number;
+    clientMouseY: number;
+    moveTimer: NodeJS.Timeout;
 
     constructor() {
         this.board = new Board();
         this.turn = 1;
         this.player = 0;
+        this.holdingPiece = false;
         this.whitePoints = this.board.GetPoints(0);
         this.blackPoints = this.board.GetPoints(1);
         this.totalPoints = this.whitePoints - this.blackPoints;
@@ -45,17 +50,40 @@ class GameController {
             let clicked = this.EventToCoordinate(event);
             let newPiece = this.GetPiece(clicked);
             this.selectedPiece = newPiece == undefined || newPiece.player != this.player ? this.selectedPiece : newPiece;
-            if(newPiece){
-                if(this.selectedPiece.player == this.player){
+            if(this.selectedPiece){
+                if(this.selectedPiece.player == this.player && clicked.x == this.selectedPiece.position.x && clicked.y == this.selectedPiece.position.y){
                     this.ShowAvailableMoves();
+                    this.moveTimer = setTimeout(() =>{
+                            this.holdingPiece = true;
+                    }, 40);
                 }
+            }
+            else{
+                this.DrawBoard();
             }
             this.CheckMove(clicked);
         });
 
+         this.gameBoard.addEventListener("mousemove", (event: MouseEvent) => {
+            var rect = this.gameBoard.getBoundingClientRect();
+        
+            this.clientMouseX = event.clientX - rect.left;
+            this.clientMouseY = event.clientY - rect.top;
+             if(this.holdingPiece && this.selectedPiece){
+                 this.ShowAvailableMoves();
+             }
+         });
+
         this.gameBoard.addEventListener("mouseup", (event: MouseEvent) =>{
             let dropped = this.EventToCoordinate(event);
-            this.CheckMove(dropped);
+            if(this.selectedPiece && this.holdingPiece){
+                this.holdingPiece = false;
+                if(!this.CheckMove(dropped))
+                    this.ShowAvailableMoves();
+            }
+            else{
+                this.DrawBoard();
+            }
         });
 
         this.gameBoardHeight = 460;
@@ -74,20 +102,25 @@ class GameController {
         `
     }
 
-    CheckMove(c: Coordinate): void{
+    CheckMove(c: Coordinate): boolean{
+        let result = false;
         if(this.possibleMoves){
             this.possibleMoves.forEach(pm => {
                 if(pm.x == c.x && pm.y == c.y){
                     this.board.MovePiece(this.selectedPiece, c);
                     (<HTMLAudioElement>(this.moveSound.cloneNode(true))).play();
+                    
                     this.ChangeTurn();
+                    result = true;
                 }
             });
         }
+        return result;
     }
 
     ChangeTurn(): void{
         this.possibleMoves = null;
+        this.selectedPiece = null;
         this.DrawBoard();
         console.clear();
         console.table(this.board.GetBoard());
@@ -160,14 +193,14 @@ class GameController {
                 
                 
                 context.fillRect(startX + left, (a * this.gameBoardWidth / 8), this.gameBoardWidth / 8, this.gameBoardWidth / 8);
-                context.rect(startX + left, (a * this.gameBoardWidth / 8), this.gameBoardWidth / 8, this.gameBoardWidth / 8);
+                // context.rect(startX + left, (a * this.gameBoardWidth / 8), this.gameBoardWidth / 8, this.gameBoardWidth / 8);
             }
             context.fillStyle = this.evenSquareColor;
             for(var b = 1; b < 8; b += 2){
                 var startX = b * this.gameBoardWidth / 8;
                 if (a % 2 == 0) startX = (b - 1) * this.gameBoardWidth / 8;
                 context.fillRect(startX + left, (a * this.gameBoardWidth / 8), this.gameBoardWidth / 8, this.gameBoardWidth / 8);
-                context.rect(startX + left, (a * this.gameBoardWidth / 8), this.gameBoardWidth / 8, this.gameBoardWidth / 8);
+                // context.rect(startX + left, (a * this.gameBoardWidth / 8), this.gameBoardWidth / 8, this.gameBoardWidth / 8);
             }
             
         }
@@ -209,7 +242,13 @@ class GameController {
 
     DrawPiece(p: Piece, context: CanvasRenderingContext2D): void{
         let img = <CanvasImageSource>document.getElementById(`${p.texture}`);
-        context.drawImage(img, p.position.y * this.gameBoardWidth / 8, p.position.x * this.gameBoardWidth / 8, this.gameBoardWidth / 8, this.gameBoardHeight / 8);
+        if(this.holdingPiece && p == this.selectedPiece){
+            context.drawImage(img, this.clientMouseX - (this.gameBoardWidth / 8) / 2, this.clientMouseY - (this.gameBoardHeight / 8) / 2, this.gameBoardWidth / 8, this.gameBoardHeight / 8);
+        }
+        else{
+            context.drawImage(img, p.position.y * this.gameBoardWidth / 8, p.position.x * this.gameBoardWidth / 8, this.gameBoardWidth / 8, this.gameBoardHeight / 8);
+        }
+        
     }
 }
 

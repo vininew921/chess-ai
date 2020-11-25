@@ -17,8 +17,8 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                     super(player, 'Queen');
                     this.value = 9;
                 }
-                PossibleMoves(b) {
-                    let result = new Array();
+                UpdatePossibleMoves(b) {
+                    this.possibleMoves = new Array();
                     this.attacking = new Array();
                     let foundLeft = false;
                     let foundRight = false;
@@ -41,12 +41,12 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                             if (lookingPiece) {
                                                 foundRight = true;
                                                 if (lookingPiece.player != this.player) {
-                                                    result.push(availablePos);
+                                                    this.possibleMoves.push(availablePos);
                                                 }
                                                 this.attacking.push(availablePos);
                                             }
                                             else {
-                                                result.push(availablePos);
+                                                this.possibleMoves.push(availablePos);
                                                 this.attacking.push(availablePos);
                                             }
                                         }
@@ -59,12 +59,12 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                             if (lookingPiece) {
                                                 foundLeft = true;
                                                 if (lookingPiece.player != this.player) {
-                                                    result.push(inverseAvailable);
+                                                    this.possibleMoves.push(inverseAvailable);
                                                 }
                                                 this.attacking.push(inverseAvailable);
                                             }
                                             else {
-                                                result.push(inverseAvailable);
+                                                this.possibleMoves.push(inverseAvailable);
                                                 this.attacking.push(inverseAvailable);
                                             }
                                         }
@@ -79,12 +79,12 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                             if (lookingPiece) {
                                                 foundDown = true;
                                                 if (lookingPiece.player != this.player) {
-                                                    result.push(availablePos);
+                                                    this.possibleMoves.push(availablePos);
                                                 }
                                                 this.attacking.push(availablePos);
                                             }
                                             else {
-                                                result.push(availablePos);
+                                                this.possibleMoves.push(availablePos);
                                                 this.attacking.push(availablePos);
                                             }
                                         }
@@ -97,12 +97,12 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                             if (lookingPiece) {
                                                 foundUp = true;
                                                 if (lookingPiece.player != this.player) {
-                                                    result.push(inverseAvailable);
+                                                    this.possibleMoves.push(inverseAvailable);
                                                 }
                                                 this.attacking.push(inverseAvailable);
                                             }
                                             else {
-                                                result.push(inverseAvailable);
+                                                this.possibleMoves.push(inverseAvailable);
                                                 this.attacking.push(inverseAvailable);
                                             }
                                         }
@@ -117,12 +117,12 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                             if (lookingPiece) {
                                                 foundDRDown = true;
                                                 if (lookingPiece.player != this.player) {
-                                                    result.push(availablePos);
+                                                    this.possibleMoves.push(availablePos);
                                                 }
                                                 this.attacking.push(availablePos);
                                             }
                                             else {
-                                                result.push(availablePos);
+                                                this.possibleMoves.push(availablePos);
                                                 this.attacking.push(availablePos);
                                             }
                                         }
@@ -136,12 +136,12 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                             if (lookingPiece) {
                                                 foundDRUp = true;
                                                 if (lookingPiece.player != this.player) { //2,6
-                                                    result.push(inverseAvailable);
+                                                    this.possibleMoves.push(inverseAvailable);
                                                 }
                                                 this.attacking.push(inverseAvailable);
                                             }
                                             else {
-                                                result.push(inverseAvailable);
+                                                this.possibleMoves.push(inverseAvailable);
                                                 this.attacking.push(inverseAvailable);
                                             }
                                         }
@@ -156,12 +156,12 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                             if (lookingPiece) {
                                                 foundDLDown = true;
                                                 if (lookingPiece.player != this.player) {
-                                                    result.push(availablePos);
+                                                    this.possibleMoves.push(availablePos);
                                                 }
                                                 this.attacking.push(availablePos);
                                             }
                                             else {
-                                                result.push(availablePos);
+                                                this.possibleMoves.push(availablePos);
                                                 this.attacking.push(availablePos);
                                             }
                                         }
@@ -175,12 +175,12 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                             if (lookingPiece) {
                                                 foundDLUp = true;
                                                 if (lookingPiece.player != this.player) {
-                                                    result.push(inverseAvailable);
+                                                    this.possibleMoves.push(inverseAvailable);
                                                 }
                                                 this.attacking.push(inverseAvailable);
                                             }
                                             else {
-                                                result.push(inverseAvailable);
+                                                this.possibleMoves.push(inverseAvailable);
                                                 this.attacking.push(inverseAvailable);
                                             }
                                         }
@@ -189,7 +189,6 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                             }
                         }
                     }
-                    return result;
                 }
             };
             exports_1("Queen", Queen);

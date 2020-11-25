@@ -58,7 +58,7 @@ System.register(["./Board", "./Coordinate"], function (exports_1, context_1) {
                         this.possibleMoves.forEach(pm => {
                             if (pm.x == c.x && pm.y == c.y) {
                                 this.board.MovePiece(this.selectedPiece, c);
-                                this.moveSound.play();
+                                (this.moveSound.cloneNode(true)).play();
                                 this.ChangeTurn();
                             }
                         });
@@ -79,11 +79,12 @@ System.register(["./Board", "./Coordinate"], function (exports_1, context_1) {
                         this.player = 0;
                         this.turn += 1;
                     }
+                    this.board.UpdatePossibleMoves();
                     this.SetHeader();
                 }
                 ShowAvailableMoves() {
                     this.DrawBoard();
-                    this.possibleMoves = this.selectedPiece.PossibleMoves(this.board);
+                    this.possibleMoves = this.selectedPiece.possibleMoves;
                     let context = this.gameBoard.getContext("2d");
                     context.fillStyle = this.possibleMoveColor;
                     this.possibleMoves.forEach(c => {
@@ -99,7 +100,6 @@ System.register(["./Board", "./Coordinate"], function (exports_1, context_1) {
                         //     // this.DrawPiece(redrawPiece, context);
                         // }
                     });
-                    console.log(this.selectedPiece.attacking);
                     this.DrawCoordinates();
                 }
                 EventToCoordinate(ev) {
@@ -137,7 +137,6 @@ System.register(["./Board", "./Coordinate"], function (exports_1, context_1) {
                     this.DrawPieces();
                 }
                 DrawCoordinates() {
-                    return;
                     let context = this.gameBoard.getContext("2d");
                     for (var i = 0; i < 8; i++) {
                         for (var j = 0; j < 8; j++) {

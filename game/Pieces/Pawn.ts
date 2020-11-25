@@ -7,8 +7,8 @@ export class Pawn extends Piece {
     value: number;
     firstMove: boolean;
 
-    PossibleMoves(b: Board): Array<Coordinate> {
-        let result = new Array<Coordinate>();
+    UpdatePossibleMoves(b: Board): void {
+        this.possibleMoves = new Array<Coordinate>();
         let indexX = this.position.x;
         let indexY = this.position.y;
 
@@ -17,10 +17,10 @@ export class Pawn extends Piece {
         if(this.player == 0){
             if(this.position.x < 7){
                 if(!b.GetPieceByPosition(new Coordinate(this.position.x - 1, this.position.y))){
-                    result.push(new Coordinate(indexX - 1, indexY));
+                    this.possibleMoves.push(new Coordinate(indexX - 1, indexY));
                     if(this.firstMove){
                         if(!b.GetPieceByPosition(new Coordinate(indexX - 2, indexY))){
-                            result.push(new Coordinate(indexX - 2, indexY));
+                            this.possibleMoves.push(new Coordinate(indexX - 2, indexY));
                         }
                     }
                 }
@@ -28,10 +28,10 @@ export class Pawn extends Piece {
                 let attackLeft = new Coordinate(this.position.x - 1, this.position.y - 1);
                 let attackRight = new Coordinate(this.position.x - 1, this.position.y + 1);
                 if(b.GetPieceByPosition(attackLeft) && b.GetPieceByPosition(attackLeft).player != this.player){
-                    result.push(attackLeft);
+                    this.possibleMoves.push(attackLeft);
                 }
                 if(b.GetPieceByPosition(attackRight) && b.GetPieceByPosition(attackRight).player != this.player){
-                    result.push(attackRight);
+                    this.possibleMoves.push(attackRight);
                 }
                 this.attacking.push(attackLeft);
                 this.attacking.push(attackRight);
@@ -40,10 +40,10 @@ export class Pawn extends Piece {
         else{
             if(this.position.x > 0){
                 if(!b.GetPieceByPosition(new Coordinate(this.position.x + 1, this.position.y))){
-                    result.push(new Coordinate(indexX + 1, indexY));
+                    this.possibleMoves.push(new Coordinate(indexX + 1, indexY));
                     if(this.firstMove){
                         if(!b.GetPieceByPosition(new Coordinate(indexX + 2, indexY))){
-                            result.push(new Coordinate(indexX + 2, indexY));
+                            this.possibleMoves.push(new Coordinate(indexX + 2, indexY));
                         }
                     }
                 }
@@ -51,17 +51,15 @@ export class Pawn extends Piece {
                 let attackLeft = new Coordinate(this.position.x + 1, this.position.y - 1);
                 let attackRight = new Coordinate(this.position.x + 1, this.position.y + 1);
                 if(b.GetPieceByPosition(attackLeft) && b.GetPieceByPosition(attackLeft).player != this.player){
-                    result.push(attackLeft);
+                    this.possibleMoves.push(attackLeft);
                 }
                 if(b.GetPieceByPosition(attackRight) && b.GetPieceByPosition(attackRight).player != this.player){
-                    result.push(attackRight);
+                    this.possibleMoves.push(attackRight);
                 }
                 this.attacking.push(attackLeft);
                 this.attacking.push(attackRight);
             }
         }
-
-        return result;
     }
     
     constructor(player: number) {

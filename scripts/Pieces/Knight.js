@@ -17,9 +17,9 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                     super(player, 'Knight');
                     this.value = 3;
                 }
-                PossibleMoves(b) {
+                UpdatePossibleMoves(b) {
                     let tempResult = new Array();
-                    let result = new Array();
+                    this.possibleMoves = new Array();
                     this.attacking = new Array();
                     tempResult.push(new Coordinate_1.Coordinate(this.position.x - 2, this.position.y + 1));
                     tempResult.push(new Coordinate_1.Coordinate(this.position.x - 2, this.position.y - 1));
@@ -33,12 +33,11 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                         if (!(tempResult[i].x < 0 || tempResult[i].x > 7 || tempResult[i].y < 0 || tempResult[i].y > 7)) {
                             let p = b.GetPieceByPosition(tempResult[i]);
                             if (!p || p.player != this.player) {
-                                result.push(tempResult[i]);
+                                this.possibleMoves.push(tempResult[i]);
                             }
                             this.attacking.push(tempResult[i]);
                         }
                     }
-                    return result;
                 }
             };
             exports_1("Knight", Knight);

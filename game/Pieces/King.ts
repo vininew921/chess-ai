@@ -5,13 +5,14 @@ import { Piece } from "./Piece";
 export class King extends Piece {
 
     value: number;
+    moved: boolean;
+    inCheck: boolean;
     
-    PossibleMoves(b: Board): Coordinate[] {
-        let result = new Array<Coordinate>();
-
+    UpdatePossibleMoves(b: Board): void {
         let tempResult = new Array<Coordinate>();
 
         this.attacking = new Array<Coordinate>();
+        this.possibleMoves = new Array<Coordinate>();
 
         tempResult.push(new Coordinate(this.position.x + 1, this.position.y + 1));
         tempResult.push(new Coordinate(this.position.x + 1, this.position.y - 1));
@@ -26,20 +27,23 @@ export class King extends Piece {
         for(var i = 0; i < tempResult.length; i++){
             if(!(tempResult[i].x < 0 || tempResult[i].x > 7 || tempResult[i].y < 0 || tempResult[i].y > 7)){
                 let p = b.GetPieceByPosition(tempResult[i]);
-                if(!p || p.player != this.player){
-                    result.push(tempResult[i]);
+                let square = b.IsSquareAttacked(tempResult[i], this.player);
+                if(!square){
+                    if((!p || p.player != this.player)){
+                        this.possibleMoves.push(tempResult[i]);
+                    }
                 }
                 this.attacking.push(tempResult[i]);
+                
             }
-            
         }
-
-        return result;
     }
     
     constructor(player: number) {
         super(player, 'King');
         this.value = 999;
+        this.moved = false;
+        this.inCheck = false;
     }
 
 }

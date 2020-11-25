@@ -9,6 +9,7 @@ export abstract class Piece {
     position: Coordinate;
 
     attacking: Array<Coordinate>;
+    possibleMoves: Array<Coordinate>;
 
     abstract value: number;
     
@@ -26,6 +27,6 @@ export abstract class Piece {
 
     }
 
-    abstract PossibleMoves(b: Board): Array<Coordinate>;
+    abstract UpdatePossibleMoves(b: Board): void;
 
 }

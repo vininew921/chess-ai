@@ -74,7 +74,7 @@ class GameController {
             this.possibleMoves.forEach(pm => {
                 if(pm.x == c.x && pm.y == c.y){
                     this.board.MovePiece(this.selectedPiece, c);
-                    this.moveSound.play();
+                    (<HTMLAudioElement>(this.moveSound.cloneNode(true))).play();
                     this.ChangeTurn();
                 }
             });
@@ -99,12 +99,14 @@ class GameController {
             this.turn += 1;
         }
 
+        this.board.UpdatePossibleMoves();
+
         this.SetHeader();
     }
 
     ShowAvailableMoves(): void{
         this.DrawBoard();
-        this.possibleMoves = this.selectedPiece.PossibleMoves(this.board);
+        this.possibleMoves = this.selectedPiece.possibleMoves;
 
         let context = this.gameBoard.getContext("2d");
         context.fillStyle = this.possibleMoveColor;
@@ -123,7 +125,6 @@ class GameController {
             // }
         });
 
-        console.log(this.selectedPiece.attacking);
         this.DrawCoordinates();
     }
     
@@ -169,7 +170,6 @@ class GameController {
     }
 
     DrawCoordinates(){
-        return;
         let context = this.gameBoard.getContext("2d");
         for(var i = 0; i < 8; i++){
             for(var j = 0; j < 8; j++){

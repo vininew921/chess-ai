@@ -16,11 +16,13 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                 constructor(player) {
                     super(player, 'King');
                     this.value = 999;
+                    this.moved = false;
+                    this.inCheck = false;
                 }
-                PossibleMoves(b) {
-                    let result = new Array();
+                UpdatePossibleMoves(b) {
                     let tempResult = new Array();
                     this.attacking = new Array();
+                    this.possibleMoves = new Array();
                     tempResult.push(new Coordinate_1.Coordinate(this.position.x + 1, this.position.y + 1));
                     tempResult.push(new Coordinate_1.Coordinate(this.position.x + 1, this.position.y - 1));
                     tempResult.push(new Coordinate_1.Coordinate(this.position.x - 1, this.position.y + 1));
@@ -32,13 +34,15 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                     for (var i = 0; i < tempResult.length; i++) {
                         if (!(tempResult[i].x < 0 || tempResult[i].x > 7 || tempResult[i].y < 0 || tempResult[i].y > 7)) {
                             let p = b.GetPieceByPosition(tempResult[i]);
-                            if (!p || p.player != this.player) {
-                                result.push(tempResult[i]);
+                            let square = b.IsSquareAttacked(tempResult[i], this.player);
+                            if (!square) {
+                                if ((!p || p.player != this.player)) {
+                                    this.possibleMoves.push(tempResult[i]);
+                                }
                             }
                             this.attacking.push(tempResult[i]);
                         }
                     }
-                    return result;
                 }
             };
             exports_1("King", King);

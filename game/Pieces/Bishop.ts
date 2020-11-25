@@ -6,9 +6,9 @@ export class Bishop extends Piece {
 
     value: number;
     
-    PossibleMoves(b: Board): Array<Coordinate> {
-        let result = new Array<Coordinate>();
+    UpdatePossibleMoves(b: Board): void {
         this.attacking = new Array<Coordinate>();
+        this.possibleMoves = new Array<Coordinate>();
 
         let foundDLUp = false;
         let foundDLDown = false;
@@ -29,12 +29,12 @@ export class Bishop extends Piece {
                                 if(lookingPiece){
                                     foundDRDown = true;
                                     if(lookingPiece.player != this.player){
-                                        result.push(availablePos);
+                                        this.possibleMoves.push(availablePos);
                                     }
                                     this.attacking.push(availablePos);
                                 }
                                 else{
-                                    result.push(availablePos);
+                                    this.possibleMoves.push(availablePos);
                                     this.attacking.push(availablePos);
                                 }
                             }
@@ -48,12 +48,12 @@ export class Bishop extends Piece {
                                 if(lookingPiece){
                                     foundDRUp = true;
                                     if(lookingPiece.player != this.player){ //2,6
-                                        result.push(inverseAvailable);
+                                        this.possibleMoves.push(inverseAvailable);
                                     }
                                     this.attacking.push(inverseAvailable);
                                 }
                                 else{
-                                    result.push(inverseAvailable);
+                                    this.possibleMoves.push(inverseAvailable);
                                     this.attacking.push(inverseAvailable);
                                 }
                             }
@@ -69,12 +69,12 @@ export class Bishop extends Piece {
                                 if(lookingPiece){
                                     foundDLDown = true;
                                     if(lookingPiece.player != this.player){
-                                        result.push(availablePos);
+                                        this.possibleMoves.push(availablePos);
                                     }
                                     this.attacking.push(availablePos);
                                 }
                                 else{
-                                    result.push(availablePos);
+                                    this.possibleMoves.push(availablePos);
                                     this.attacking.push(availablePos);
                                 }
                             }
@@ -90,12 +90,12 @@ export class Bishop extends Piece {
                                 if(lookingPiece){
                                     foundDLUp = true;
                                     if(lookingPiece.player != this.player){
-                                        result.push(inverseAvailable);
+                                        this.possibleMoves.push(inverseAvailable);
                                     }
                                     this.attacking.push(inverseAvailable);
                                 }
                                 else{
-                                    result.push(inverseAvailable);
+                                    this.possibleMoves.push(inverseAvailable);
                                     this.attacking.push(inverseAvailable);
                                 }
                             }
@@ -105,8 +105,6 @@ export class Bishop extends Piece {
                 
             }
         }
-
-        return result;
     }
     
     constructor(player: number) {

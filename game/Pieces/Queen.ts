@@ -6,8 +6,8 @@ export class Queen extends Piece {
 
     value: number;
 
-    PossibleMoves(b: Board): Array<Coordinate> {
-        let result = new Array<Coordinate>();
+    UpdatePossibleMoves(b: Board): void {
+        this.possibleMoves = new Array<Coordinate>();
 
         this.attacking = new Array<Coordinate>();
 
@@ -34,12 +34,12 @@ export class Queen extends Piece {
                                 if(lookingPiece){
                                     foundRight = true;
                                     if(lookingPiece.player != this.player){
-                                        result.push(availablePos);
+                                        this.possibleMoves.push(availablePos);
                                     }
                                     this.attacking.push(availablePos);
                                 }
                                 else{
-                                    result.push(availablePos);
+                                    this.possibleMoves.push(availablePos);
                                     this.attacking.push(availablePos);
                                 }
                             }
@@ -52,12 +52,12 @@ export class Queen extends Piece {
                                 if(lookingPiece){
                                     foundLeft = true;
                                     if(lookingPiece.player != this.player){
-                                        result.push(inverseAvailable);
+                                        this.possibleMoves.push(inverseAvailable);
                                     }
                                     this.attacking.push(inverseAvailable);
                                 }
                                 else{
-                                    result.push(inverseAvailable);
+                                    this.possibleMoves.push(inverseAvailable);
                                     this.attacking.push(inverseAvailable);
                                 }
                             }
@@ -73,12 +73,12 @@ export class Queen extends Piece {
                                 if(lookingPiece){
                                     foundDown = true;
                                     if(lookingPiece.player != this.player){
-                                        result.push(availablePos);
+                                        this.possibleMoves.push(availablePos);
                                     }
                                     this.attacking.push(availablePos);
                                 }
                                 else{
-                                    result.push(availablePos);
+                                    this.possibleMoves.push(availablePos);
                                     this.attacking.push(availablePos);
                                 }
                             }
@@ -91,12 +91,12 @@ export class Queen extends Piece {
                                 if(lookingPiece){
                                     foundUp = true;
                                     if(lookingPiece.player != this.player){
-                                        result.push(inverseAvailable);
+                                        this.possibleMoves.push(inverseAvailable);
                                     }
                                     this.attacking.push(inverseAvailable);
                                 }
                                 else{
-                                    result.push(inverseAvailable);
+                                    this.possibleMoves.push(inverseAvailable);
                                     this.attacking.push(inverseAvailable);
                                 }
                             }
@@ -112,12 +112,12 @@ export class Queen extends Piece {
                                 if(lookingPiece){
                                     foundDRDown = true;
                                     if(lookingPiece.player != this.player){
-                                        result.push(availablePos);
+                                        this.possibleMoves.push(availablePos);
                                     }
                                     this.attacking.push(availablePos);
                                 }
                                 else{
-                                    result.push(availablePos);
+                                    this.possibleMoves.push(availablePos);
                                     this.attacking.push(availablePos);
                                 }
                             }
@@ -131,12 +131,12 @@ export class Queen extends Piece {
                                 if(lookingPiece){
                                     foundDRUp = true;
                                     if(lookingPiece.player != this.player){ //2,6
-                                        result.push(inverseAvailable);
+                                        this.possibleMoves.push(inverseAvailable);
                                     }
                                     this.attacking.push(inverseAvailable);
                                 }
                                 else{
-                                    result.push(inverseAvailable);
+                                    this.possibleMoves.push(inverseAvailable);
                                     this.attacking.push(inverseAvailable);
                                 }
                             }
@@ -152,12 +152,12 @@ export class Queen extends Piece {
                                 if(lookingPiece){
                                     foundDLDown = true;
                                     if(lookingPiece.player != this.player){
-                                        result.push(availablePos);
+                                        this.possibleMoves.push(availablePos);
                                     }
                                     this.attacking.push(availablePos);
                                 }
                                 else{
-                                    result.push(availablePos);
+                                    this.possibleMoves.push(availablePos);
                                     this.attacking.push(availablePos);
                                 }
                             }
@@ -173,12 +173,12 @@ export class Queen extends Piece {
                                 if(lookingPiece){
                                     foundDLUp = true;
                                     if(lookingPiece.player != this.player){
-                                        result.push(inverseAvailable);
+                                        this.possibleMoves.push(inverseAvailable);
                                     }
                                     this.attacking.push(inverseAvailable);
                                 }
                                 else{
-                                    result.push(inverseAvailable);
+                                    this.possibleMoves.push(inverseAvailable);
                                     this.attacking.push(inverseAvailable);
                                 }
                             }
@@ -188,8 +188,6 @@ export class Queen extends Piece {
                 
             }
         }
-
-        return result;
     }
     
     constructor(player: number) {

@@ -6,9 +6,9 @@ export class Knight extends Piece {
     
     value: number;
     
-    PossibleMoves(b: Board): Coordinate[] {
+    UpdatePossibleMoves(b: Board): void {
         let tempResult = new Array<Coordinate>();
-        let result = new Array<Coordinate>();
+        this.possibleMoves = new Array<Coordinate>();
         this.attacking = new Array<Coordinate>();
 
         tempResult.push(new Coordinate(this.position.x - 2, this.position.y + 1));
@@ -25,13 +25,11 @@ export class Knight extends Piece {
             if(!(tempResult[i].x < 0 || tempResult[i].x > 7 || tempResult[i].y < 0 || tempResult[i].y > 7)){
                 let p = b.GetPieceByPosition(tempResult[i]);
                 if(!p || p.player != this.player){
-                    result.push(tempResult[i]);
+                    this.possibleMoves.push(tempResult[i]);
                 }
                 this.attacking.push(tempResult[i]);
             }
         }
-
-        return result;
     }
     
     constructor(player: number) {

@@ -6,8 +6,8 @@ export class Rook extends Piece {
 
     value: number;
     
-    PossibleMoves(b: Board): Array<Coordinate> {
-        let result = new Array<Coordinate>();
+    UpdatePossibleMoves(b: Board): void {
+        this.possibleMoves = new Array<Coordinate>();
 
         let foundLeft = false;
         let foundRight = false;
@@ -30,12 +30,12 @@ export class Rook extends Piece {
                                 if(lookingPiece){
                                     foundRight = true;
                                     if(lookingPiece.player != this.player){
-                                        result.push(availablePos);
+                                        this.possibleMoves.push(availablePos);
                                     }
                                     this.attacking.push(availablePos);
                                 }
                                 else{
-                                    result.push(availablePos);
+                                    this.possibleMoves.push(availablePos);
                                     this.attacking.push(availablePos);
                                 }
                             }
@@ -48,12 +48,12 @@ export class Rook extends Piece {
                                 if(lookingPiece){
                                     foundLeft = true;
                                     if(lookingPiece.player != this.player){
-                                        result.push(inverseAvailable);
+                                        this.possibleMoves.push(inverseAvailable);
                                     }
                                     this.attacking.push(inverseAvailable);
                                 }
                                 else{
-                                    result.push(inverseAvailable);
+                                    this.possibleMoves.push(inverseAvailable);
                                     this.attacking.push(inverseAvailable);
                                 }
                             }
@@ -69,12 +69,12 @@ export class Rook extends Piece {
                                 if(lookingPiece){
                                     foundDown = true;
                                     if(lookingPiece.player != this.player){
-                                        result.push(availablePos);
+                                        this.possibleMoves.push(availablePos);
                                     }
                                     this.attacking.push(availablePos);
                                 }
                                 else{
-                                    result.push(availablePos);
+                                    this.possibleMoves.push(availablePos);
                                     this.attacking.push(availablePos);
                                 }
                             }
@@ -87,12 +87,12 @@ export class Rook extends Piece {
                                 if(lookingPiece){
                                     foundUp = true;
                                     if(lookingPiece.player != this.player){
-                                        result.push(inverseAvailable);
+                                        this.possibleMoves.push(inverseAvailable);
                                     }
                                     this.attacking.push(inverseAvailable);
                                 }
                                 else{
-                                    result.push(inverseAvailable);
+                                    this.possibleMoves.push(inverseAvailable);
                                     this.attacking.push(inverseAvailable);
                                 }
                             }
@@ -101,8 +101,6 @@ export class Rook extends Piece {
                 }
             }
         }
-
-        return result;
     }
 
     constructor(player: number) {

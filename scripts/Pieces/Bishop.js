@@ -17,9 +17,9 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                     super(player, 'Bishop');
                     this.value = 3;
                 }
-                PossibleMoves(b) {
-                    let result = new Array();
+                UpdatePossibleMoves(b) {
                     this.attacking = new Array();
+                    this.possibleMoves = new Array();
                     let foundDLUp = false;
                     let foundDLDown = false;
                     let foundDRUp = false;
@@ -37,12 +37,12 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                             if (lookingPiece) {
                                                 foundDRDown = true;
                                                 if (lookingPiece.player != this.player) {
-                                                    result.push(availablePos);
+                                                    this.possibleMoves.push(availablePos);
                                                 }
                                                 this.attacking.push(availablePos);
                                             }
                                             else {
-                                                result.push(availablePos);
+                                                this.possibleMoves.push(availablePos);
                                                 this.attacking.push(availablePos);
                                             }
                                         }
@@ -56,12 +56,12 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                             if (lookingPiece) {
                                                 foundDRUp = true;
                                                 if (lookingPiece.player != this.player) { //2,6
-                                                    result.push(inverseAvailable);
+                                                    this.possibleMoves.push(inverseAvailable);
                                                 }
                                                 this.attacking.push(inverseAvailable);
                                             }
                                             else {
-                                                result.push(inverseAvailable);
+                                                this.possibleMoves.push(inverseAvailable);
                                                 this.attacking.push(inverseAvailable);
                                             }
                                         }
@@ -76,12 +76,12 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                             if (lookingPiece) {
                                                 foundDLDown = true;
                                                 if (lookingPiece.player != this.player) {
-                                                    result.push(availablePos);
+                                                    this.possibleMoves.push(availablePos);
                                                 }
                                                 this.attacking.push(availablePos);
                                             }
                                             else {
-                                                result.push(availablePos);
+                                                this.possibleMoves.push(availablePos);
                                                 this.attacking.push(availablePos);
                                             }
                                         }
@@ -95,12 +95,12 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                                             if (lookingPiece) {
                                                 foundDLUp = true;
                                                 if (lookingPiece.player != this.player) {
-                                                    result.push(inverseAvailable);
+                                                    this.possibleMoves.push(inverseAvailable);
                                                 }
                                                 this.attacking.push(inverseAvailable);
                                             }
                                             else {
-                                                result.push(inverseAvailable);
+                                                this.possibleMoves.push(inverseAvailable);
                                                 this.attacking.push(inverseAvailable);
                                             }
                                         }
@@ -109,7 +109,6 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                             }
                         }
                     }
-                    return result;
                 }
             };
             exports_1("Bishop", Bishop);

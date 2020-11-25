@@ -18,18 +18,18 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                     this.value = 1;
                     this.firstMove = true;
                 }
-                PossibleMoves(b) {
-                    let result = new Array();
+                UpdatePossibleMoves(b) {
+                    this.possibleMoves = new Array();
                     let indexX = this.position.x;
                     let indexY = this.position.y;
                     this.attacking = new Array();
                     if (this.player == 0) {
                         if (this.position.x < 7) {
                             if (!b.GetPieceByPosition(new Coordinate_1.Coordinate(this.position.x - 1, this.position.y))) {
-                                result.push(new Coordinate_1.Coordinate(indexX - 1, indexY));
+                                this.possibleMoves.push(new Coordinate_1.Coordinate(indexX - 1, indexY));
                                 if (this.firstMove) {
                                     if (!b.GetPieceByPosition(new Coordinate_1.Coordinate(indexX - 2, indexY))) {
-                                        result.push(new Coordinate_1.Coordinate(indexX - 2, indexY));
+                                        this.possibleMoves.push(new Coordinate_1.Coordinate(indexX - 2, indexY));
                                     }
                                 }
                             }
@@ -37,10 +37,10 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                             let attackLeft = new Coordinate_1.Coordinate(this.position.x - 1, this.position.y - 1);
                             let attackRight = new Coordinate_1.Coordinate(this.position.x - 1, this.position.y + 1);
                             if (b.GetPieceByPosition(attackLeft) && b.GetPieceByPosition(attackLeft).player != this.player) {
-                                result.push(attackLeft);
+                                this.possibleMoves.push(attackLeft);
                             }
                             if (b.GetPieceByPosition(attackRight) && b.GetPieceByPosition(attackRight).player != this.player) {
-                                result.push(attackRight);
+                                this.possibleMoves.push(attackRight);
                             }
                             this.attacking.push(attackLeft);
                             this.attacking.push(attackRight);
@@ -49,10 +49,10 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                     else {
                         if (this.position.x > 0) {
                             if (!b.GetPieceByPosition(new Coordinate_1.Coordinate(this.position.x + 1, this.position.y))) {
-                                result.push(new Coordinate_1.Coordinate(indexX + 1, indexY));
+                                this.possibleMoves.push(new Coordinate_1.Coordinate(indexX + 1, indexY));
                                 if (this.firstMove) {
                                     if (!b.GetPieceByPosition(new Coordinate_1.Coordinate(indexX + 2, indexY))) {
-                                        result.push(new Coordinate_1.Coordinate(indexX + 2, indexY));
+                                        this.possibleMoves.push(new Coordinate_1.Coordinate(indexX + 2, indexY));
                                     }
                                 }
                             }
@@ -60,16 +60,15 @@ System.register(["../Coordinate", "./Piece"], function (exports_1, context_1) {
                             let attackLeft = new Coordinate_1.Coordinate(this.position.x + 1, this.position.y - 1);
                             let attackRight = new Coordinate_1.Coordinate(this.position.x + 1, this.position.y + 1);
                             if (b.GetPieceByPosition(attackLeft) && b.GetPieceByPosition(attackLeft).player != this.player) {
-                                result.push(attackLeft);
+                                this.possibleMoves.push(attackLeft);
                             }
                             if (b.GetPieceByPosition(attackRight) && b.GetPieceByPosition(attackRight).player != this.player) {
-                                result.push(attackRight);
+                                this.possibleMoves.push(attackRight);
                             }
                             this.attacking.push(attackLeft);
                             this.attacking.push(attackRight);
                         }
                     }
-                    return result;
                 }
             };
             exports_1("Pawn", Pawn);

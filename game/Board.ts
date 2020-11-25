@@ -4,8 +4,12 @@ import { Bishop, King, Queen, Knight, Pawn, Rook } from "./Pieces/PiecesExport";
 
 export class Board {
     private position: Array<Array<Piece>>;
+    whitePieces: Array<Piece>;
+    blackPieces: Array<Piece>;
+    pieces: Array<Piece>;
 
     constructor() {
+        this.pieces = new Array<Piece>();
         this.position = [
             [new Rook(1), new Knight(1), new Bishop(1), new Queen(1), new King(1), new Bishop(1), new Knight(1), new Rook(1)],
             [new Pawn(1), new Pawn(1), new Pawn(1), new Pawn(1), new Pawn(1), new Pawn(1), new Pawn(1), new Pawn(1)],
@@ -18,16 +22,26 @@ export class Board {
         ];
 
         console.table(this.position);
-        this.SetPiecesPosition();
+        this.UpdatePossibleMoves();
     }
 
-    SetPiecesPosition(): void{
+    UpdatePossibleMoves(): void{
+        this.pieces = new Array<Piece>();
+        this.whitePieces = new Array<Piece>();
+        this.blackPieces = new Array<Piece>();
         for(var i = 0; i < 8; i++){
             for(var j = 0; j < 8; j++){
-                let piece = this.GetBoard()[i][j];
+                let piece = this.GetPieceByPosition(new Coordinate(i, j));
                 if(piece != undefined){
+                    this.pieces.push(piece);
+                    if(piece.player == 0){
+                        this.whitePieces.push(piece);
+                    }
+                    else{
+                        this.blackPieces.push(piece);
+                    }
                     piece.position = new Coordinate(i, j);
-                    piece.PossibleMoves(this);
+                    piece.UpdatePossibleMoves(this);
                 }
             }
         }
@@ -38,9 +52,13 @@ export class Board {
 
         piece.position = newPos;
 
-        if(piece as Pawn != undefined){
+        if(typeof piece == typeof Pawn){
             var p = piece as Pawn;
             p.firstMove = false;
+        }
+        else if(typeof piece == typeof King){
+            var k = piece as King;
+            k.moved = true;
         }
 
         this.position[newPos.x][newPos.y] = piece;
@@ -55,6 +73,21 @@ export class Board {
             return null;
         }
         return this.position[c.x][c.y];
+    }
+
+    public IsSquareAttacked(c: Coordinate, currentPlayer: number): boolean{
+        let looking = currentPlayer == 0 ? this.blackPieces : this.whitePieces;
+        let result = false;
+
+        looking.forEach(piece => {
+            piece.attacking.forEach(square => {
+                if(square.x == c.x && square.y == c.y){
+                    result = true;
+                }
+            });
+        });
+        console.log(`${c.x}, ${c.y}, ${currentPlayer == 0 ? 'White' : 'Black'}, ${result}`);
+        return result;
     }
 
     public GetPoints(player: number): number{

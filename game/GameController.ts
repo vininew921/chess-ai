@@ -16,6 +16,7 @@ class GameController {
     gameBoardHeight: number;
     gameBoardWidth: number;
     gameHeader: HTMLHeadElement;
+    moveSound: HTMLAudioElement;
     board: Board;
     selectedPiece: Piece;
     possibleMoves: Array<Coordinate>;
@@ -30,6 +31,7 @@ class GameController {
         this.whitePoints = this.board.GetPoints(0);
         this.blackPoints = this.board.GetPoints(1);
         this.totalPoints = this.whitePoints - this.blackPoints;
+        this.moveSound = new Audio('../frontend/sound/move.mp3');
 
         // this.oddSquareColor = "#D2691E"; //brown
         this.oddSquareColor = "#1da2db"; // blue
@@ -51,8 +53,10 @@ class GameController {
             this.CheckMove(clicked);
         });
 
-        this.gameBoardHeight = 480;
-        this.gameBoardWidth = 480;
+        this.gameBoardHeight = 460;
+        this.gameBoardWidth = 460;
+        this.gameBoard.height = this.gameBoardHeight;
+        this.gameBoard.width = this.gameBoardWidth;
         this.DrawBoard();
         this.DrawCoordinates();
     }
@@ -70,6 +74,7 @@ class GameController {
             this.possibleMoves.forEach(pm => {
                 if(pm.x == c.x && pm.y == c.y){
                     this.board.MovePiece(this.selectedPiece, c);
+                    this.moveSound.play();
                     this.ChangeTurn();
                 }
             });
@@ -197,7 +202,7 @@ class GameController {
 
     DrawPiece(p: Piece, context: CanvasRenderingContext2D){
         let img = <CanvasImageSource>document.getElementById(`${p.texture}`);
-        context.drawImage(img, p.position.y * this.gameBoardWidth / 8, p.position.x * this.gameBoardWidth / 8);
+        context.drawImage(img, p.position.y * this.gameBoardWidth / 8, p.position.x * this.gameBoardWidth / 8, this.gameBoardWidth / 8, this.gameBoardHeight / 8);
     }
 }
 

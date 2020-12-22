@@ -1,4 +1,5 @@
 [![GPL-3.0 License][license-shield]][license-url] ![project-issues]
+# NO LONGER WORKING ON THIS VERSION
 # Chess AI
 
 ## About
